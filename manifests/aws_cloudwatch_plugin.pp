@@ -10,7 +10,7 @@
 # $install_path::    Install Path for New Relic AWS Cloudwatch Plugin
 #
 # $version::         New Relic AWS Cloudwatch Plugin Version. 
-#                    Currently defaults to the latest version - 3.1.0
+#                    Currently defaults to the latest version.
 #
 # $aws_access_key::  AWS Access Key for New Relic AWS Cloudwatch Plugin
 #

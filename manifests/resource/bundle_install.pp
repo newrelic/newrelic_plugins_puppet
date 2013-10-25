@@ -1,6 +1,4 @@
-define newrelic_plugins_puppet::resource::bundle_install (
-  $plugin_path
-) {
+define newrelic_plugins_puppet::resource::bundle_install ($plugin_path) {
 
   # install bundler gem
   package { 'bundler' :

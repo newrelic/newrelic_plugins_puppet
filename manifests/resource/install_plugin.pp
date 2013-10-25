@@ -3,10 +3,12 @@ define newrelic_plugins_puppet::resource::install_plugin (
   $download_url,
   $version
 ) {
+
   # create install directory
-  file { $install_path:
-    ensure => directory,
-    mode   => '0644'
+  exec { 'create install directory':
+    command => "mkdir -p ${install_path}",
+    path    => $path,
+    unless  => "test -d ${install_path}"
   }
 
   $directory_name = "${name}-${version}" 
@@ -18,7 +20,7 @@ define newrelic_plugins_puppet::resource::install_plugin (
     cwd => $install_path,
     creates => "${install_path}/${file_name}",
     path => $::path,
-    require => File[$install_path]
+    require => Exec['create install directory']
   }
 
   # extract plugin tar file

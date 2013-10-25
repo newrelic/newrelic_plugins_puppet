@@ -1,5 +1,5 @@
 define newrelic_plugins_puppet::resource::plugin_service (
-  $daemon,
+  $daemon = '',
   $daemon_dir,
   $plugin_name,
   $plugin_version,
