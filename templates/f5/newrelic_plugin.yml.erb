@@ -30,10 +30,10 @@ newrelic:
 agents:
   f5:
     # Define one or more instances
-<% @agents.each do |agent| -%>
+<%- @agents.each do |agent| %>
     -
       name:           '<%= agent['name'] %>'
       hostname:       '<%= agent['hostname'] %>'
       port:           <%= agent['port'] %>
       snmp_community: '<%= agent['snmp_community'] %>'
-<% end -%>
+<%- end %>
