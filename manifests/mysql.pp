@@ -1,6 +1,6 @@
 # = Class: newrelic_plugins::mysql
 #
-# This class installs/configures/manages New Relic's MySQL Plugin. 
+# This class installs/configures/manages New Relic's MySQL Plugin.
 # Only supported on Debian-derived and Red Hat-derived OSes.
 #
 # == Parameters:
@@ -20,7 +20,7 @@
 #
 # == Sample Usage:
 #
-#   class { 'newrelic_plugins_puppet::mysql_plugin':
+#   class { 'newrelic_plugins::mysql':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
 #     servers        => [
@@ -38,9 +38,9 @@ class newrelic_plugins::mysql (
     $license_key,
     $install_path,
     $version = '1.0.7',
-    $servers
+    $servers,
 ) {
-  
+
   include stdlib
 
   # verify java is installed
@@ -52,7 +52,7 @@ class newrelic_plugins::mysql (
   validate_array($servers)
 
   # verify license_key
-  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key': 
+  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -60,7 +60,7 @@ class newrelic_plugins::mysql (
   newrelic_plugins::resource::install_plugin { 'newrelic_mysql_plugin':
     install_path => $install_path,
     download_url => "https://raw.github.com/newrelic-platform/newrelic_mysql_java_plugin/master/dist/newrelic_mysql_plugin-${version}.tar.gz",
-    version => $version
+    version      => $version
   }
 
   $plugin_path = "${install_path}/newrelic_mysql_plugin-${$version}"
@@ -76,7 +76,7 @@ class newrelic_plugins::mysql (
     ensure  => file,
     content => template('newrelic_plugins/mysql/mysql.instance.json.erb')
   }
-  
+
   # install init.d script and start service
   newrelic_plugins::resource::plugin_service { 'newrelic-mysql-plugin':
     daemon         => 'newrelic_mysql_plugin*.jar',

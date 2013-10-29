@@ -14,7 +14,8 @@
 #
 #   class { 'newrelic_plugins': }
 #
-class newrelic_plugins() {
+class newrelic_plugins(
+) {
 
 }
 

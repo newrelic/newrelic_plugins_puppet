@@ -1,6 +1,6 @@
 # = Class: newrelic_plugins::example
 #
-# This class installs/configures/manages New Relic's Example Plugin. 
+# This class installs/configures/manages New Relic's Example Plugin.
 # Only supported on Debian-derived and Red Hat-derived OSes.
 #
 # == Parameters:
@@ -26,9 +26,9 @@
 class newrelic_plugins::example (
     $license_key,
     $install_path,
-    $version = '1.0.1'
+    $version = '1.0.1',
 ) {
-  
+
   include stdlib
 
   # verify ruby is installed
@@ -39,7 +39,7 @@ class newrelic_plugins::example (
   validate_string($version)
 
   # verify license_key
-  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key': 
+  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -47,7 +47,7 @@ class newrelic_plugins::example (
   newrelic_plugins::resource::install_plugin { 'newrelic_example_plugin':
     install_path => $install_path,
     download_url => "https://github.com/newrelic-platform/newrelic_example_plugin/archive/release/${version}.tar.gz",
-    version => $version
+    version      => $version
   }
 
   $plugin_path = "${install_path}/newrelic_example_plugin-release-${$version}"
@@ -62,7 +62,7 @@ class newrelic_plugins::example (
   newrelic_plugins::resource::bundle_install { 'bundle install':
     plugin_path => $plugin_path
   }
-  
+
   # install init.d script and start service
   newrelic_plugins::resource::plugin_service { 'newrelic-example-plugin':
     daemon         => './newrelic_example_agent',

@@ -1,6 +1,6 @@
 # = Class: newrelic_plugins::aws_cloudwatch
 #
-# This class installs/configures/manages New Relic's AWS Cloudwatch Plugin. 
+# This class installs/configures/manages New Relic's AWS Cloudwatch Plugin.
 # Only supported on Debian-derived and Red Hat-derived OSes.
 #
 # == Parameters:
@@ -9,19 +9,19 @@
 #
 # $install_path::    Install Path for New Relic AWS Cloudwatch Plugin
 #
-# $version::         New Relic AWS Cloudwatch Plugin Version. 
+# $version::         New Relic AWS Cloudwatch Plugin Version.
 #                    Currently defaults to the latest version.
 #
 # $aws_access_key::  AWS Access Key for New Relic AWS Cloudwatch Plugin
 #
 # $aws_secret_key::  AWS Secret Key for New Relic AWS Cloudwatch Plugin
 #
-# $agents::          Array of AWS Agents. Valid agents are: 
+# $agents::          Array of AWS Agents. Valid agents are:
 #                    'ec2', 'ebs', 'elb', 'rds', 'sqs', 'sns', 'ec'
 #
 # $regions::         Optional array of AWS regions. Example regions are:
-#                    'us-east-1', 'us-west-1', etc. If $regions is not 
-#                    provided, the plugin will default to all available 
+#                    'us-east-1', 'us-west-1', etc. If $regions is not
+#                    provided, the plugin will default to all available
 #                    regions.
 #
 # == Requires:
@@ -45,9 +45,9 @@ class newrelic_plugins::aws_cloudwatch (
     $aws_access_key,
     $aws_secret_key,
     $agents,
-    $regions = []
+    $regions = [],
 ) {
-  
+
   include stdlib
 
   # verify ruby is installed
@@ -62,7 +62,7 @@ class newrelic_plugins::aws_cloudwatch (
   validate_array($regions)
 
   # verify license_key
-  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key': 
+  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -83,7 +83,7 @@ class newrelic_plugins::aws_cloudwatch (
   newrelic_plugins::resource::install_plugin { 'newrelic_aws_cloudwatch_plugin':
     install_path => $install_path,
     download_url => "https://github.com/newrelic-platform/newrelic_aws_cloudwatch_plugin/archive/${version}.tar.gz",
-    version => $version
+    version      => $version
   }
 
   $plugin_path = "${install_path}/newrelic_aws_cloudwatch_plugin-${$version}"
@@ -98,7 +98,7 @@ class newrelic_plugins::aws_cloudwatch (
   newrelic_plugins::resource::bundle_install { 'bundle install':
     plugin_path => $plugin_path
   }
-  
+
   # install init.d script and start service
   newrelic_plugins::resource::plugin_service { 'newrelic-aws-cloudwatch-plugin':
     daemon         => './bin/newrelic_aws',

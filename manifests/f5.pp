@@ -1,6 +1,6 @@
 # = Class: newrelic_plugins::f5
 #
-# This class installs/configures/manages New Relic's F5 Plugin. 
+# This class installs/configures/manages New Relic's F5 Plugin.
 # Only supported on Debian-derived and Red Hat-derived OSes.
 #
 # == Parameters:
@@ -18,7 +18,7 @@
 #
 # == Sample Usage:
 #
-#   class { 'newrelic_plugins_puppet::f5_plugin':
+#   class { 'newrelic_plugins::f5':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
 #     agents         => [
@@ -35,9 +35,9 @@ class newrelic_plugins::f5 (
     $license_key,
     $install_path,
     $version = '1.0.7',
-    $agents
+    $agents,
 ) {
-  
+
   include stdlib
 
   # verify ruby is installed
@@ -49,7 +49,7 @@ class newrelic_plugins::f5 (
   validate_array($agents)
 
   # verify license_key
-  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key': 
+  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -62,7 +62,7 @@ class newrelic_plugins::f5 (
   # create install directory
   exec { 'create install directory':
     command => "mkdir -p ${install_path}",
-    path    => $path,
+    path    => $::path,
     unless  => "test -d ${install_path}"
   }
 
@@ -76,7 +76,7 @@ class newrelic_plugins::f5 (
     ensure  => file,
     content => template('newrelic_plugins/f5/newrelic_plugin.yml.erb')
   }
-  
+
   # install init.d script and start service
   newrelic_plugins::resource::plugin_service { 'newrelic-f5-plugin':
     daemon_dir     => $install_path,
