@@ -39,7 +39,7 @@ class newrelic_plugins::mysql (
     $install_path,
     $version = '1.0.7',
     $servers,
-) {
+) inherits params {
 
   include stdlib
 

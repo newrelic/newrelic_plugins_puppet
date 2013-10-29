@@ -27,7 +27,7 @@ class newrelic_plugins::example (
     $license_key,
     $install_path,
     $version = '1.0.1',
-) {
+) inherits params {
 
   include stdlib
 

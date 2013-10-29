@@ -36,7 +36,7 @@ class newrelic_plugins::f5 (
     $install_path,
     $version = '1.0.7',
     $agents,
-) {
+) inherits params {
 
   include stdlib
 

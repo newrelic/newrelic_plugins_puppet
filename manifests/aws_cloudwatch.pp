@@ -41,12 +41,12 @@
 class newrelic_plugins::aws_cloudwatch (
     $license_key,
     $install_path,
-    $version = '3.1.0',
     $aws_access_key,
     $aws_secret_key,
     $agents,
+    $version = $newrelic_plugins::params::aws_cloudwatch_version,
     $regions = [],
-) {
+) inherits params {
 
   include stdlib
 
@@ -66,23 +66,15 @@ class newrelic_plugins::aws_cloudwatch (
     license_key => $license_key
   }
 
-  # nokogiri dependencies
-  if $::osfamily == 'Debian' {
-    $nokogiri_packages = ['libxml2-dev', 'libxslt-dev']
-  }
-  else {
-    $nokogiri_packages = ['libxml2', 'libxml2-devel', 'libxslt', 'libxslt-devel']
-  }
   # nokogiri packages
-  package {
-    $nokogiri_packages:
-      ensure => present;
+  package { $newrelic_plugins::params::aws_cloudwatch_nokogiri_packages:
+    ensure => present;
   }
 
   # install plugin
   newrelic_plugins::resource::install_plugin { 'newrelic_aws_cloudwatch_plugin':
     install_path => $install_path,
-    download_url => "https://github.com/newrelic-platform/newrelic_aws_cloudwatch_plugin/archive/${version}.tar.gz",
+    download_url => "${newrelic_plugins::params::aws_cloudwatch_download_baseurl}/${version}.tar.gz",
     version      => $version
   }
 
