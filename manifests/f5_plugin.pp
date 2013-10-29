@@ -34,7 +34,7 @@
 class newrelic_plugins_puppet::f5_plugin (
     $license_key,
     $install_path,
-    $version = '1.0.6',
+    $version = '1.0.7',
     $agents
 ) {
   
