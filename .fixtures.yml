@@ -1,0 +1,9 @@
+fixtures:
+  # If you are going to release a module, use this method to define deps.
+  repositories:
+    "stdlib": "git://github.com/puppetlabs/puppetlabs-stdlib"
+
+  # Otherwise use this.
+  symlinks:
+    "newrelic_plugins": "#{source_dir}"
+

@@ -1,0 +1,6 @@
+# The function of this file is to ignore everything except the .gitignore file in this directory.
+# We get away with this because the .fixtures.yml file at the root of the module directory
+# specifies the actual fixtures which will be populated here during test runs via symlinks.
+# This obiviates the need to have actual module fixtures here.
+*
+!.gitignore
