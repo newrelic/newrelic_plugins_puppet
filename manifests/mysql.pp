@@ -1,4 +1,4 @@
-# = Class: newrelic_plugins_puppet::mysql_plugin
+# = Class: newrelic_plugins::mysql
 #
 # This class installs/configures/manages New Relic's MySQL Plugin. 
 # Only supported on Debian-derived and Red Hat-derived OSes.
@@ -34,7 +34,7 @@
 #     ]
 #   }
 #
-class newrelic_plugins_puppet::mysql_plugin (
+class newrelic_plugins::mysql (
     $license_key,
     $install_path,
     $version = '1.0.7',
@@ -44,7 +44,7 @@ class newrelic_plugins_puppet::mysql_plugin (
   include stdlib
 
   # verify java is installed
-  newrelic_plugins_puppet::resource::verify_java { 'MySQL Plugin': }
+  newrelic_plugins::resource::verify_java { 'MySQL Plugin': }
 
   # verify attributes
   validate_absolute_path($install_path)
@@ -52,12 +52,12 @@ class newrelic_plugins_puppet::mysql_plugin (
   validate_array($servers)
 
   # verify license_key
-  newrelic_plugins_puppet::resource::verify_license_key { 'Verify New Relic License Key': 
+  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key': 
     license_key => $license_key
   }
 
   # install plugin
-  newrelic_plugins_puppet::resource::install_plugin { 'newrelic_mysql_plugin':
+  newrelic_plugins::resource::install_plugin { 'newrelic_mysql_plugin':
     install_path => $install_path,
     download_url => "https://raw.github.com/newrelic-platform/newrelic_mysql_java_plugin/master/dist/newrelic_mysql_plugin-${version}.tar.gz",
     version => $version
@@ -68,17 +68,17 @@ class newrelic_plugins_puppet::mysql_plugin (
   # newrelic.properties template
   file { "${plugin_path}/config/newrelic.properties":
     ensure  => file,
-    content => template('newrelic_plugins_puppet/mysql/newrelic.properties.erb')
+    content => template('newrelic_plugins/mysql/newrelic.properties.erb')
   }
 
   # mysql.instance.json template
   file { "${plugin_path}/config/mysql.instance.json":
     ensure  => file,
-    content => template('newrelic_plugins_puppet/mysql/mysql.instance.json.erb')
+    content => template('newrelic_plugins/mysql/mysql.instance.json.erb')
   }
   
   # install init.d script and start service
-  newrelic_plugins_puppet::resource::plugin_service { 'newrelic-mysql-plugin':
+  newrelic_plugins::resource::plugin_service { 'newrelic-mysql-plugin':
     daemon         => 'newrelic_mysql_plugin*.jar',
     daemon_dir     => $plugin_path,
     plugin_name    => 'MySQL',
@@ -88,15 +88,16 @@ class newrelic_plugins_puppet::mysql_plugin (
   }
 
   # ordering
-  Newrelic_plugins_puppet::Resource::Verify_java['MySQL Plugin']
+  Newrelic_plugins::Resource::Verify_java['MySQL Plugin']
   ->
-  Newrelic_plugins_puppet::Resource::Verify_license_key['Verify New Relic License Key']
+  Newrelic_plugins::Resource::Verify_license_key['Verify New Relic License Key']
   ->
-  Newrelic_plugins_puppet::Resource::Install_plugin['newrelic_mysql_plugin']
+  Newrelic_plugins::Resource::Install_plugin['newrelic_mysql_plugin']
   ->
   File["${plugin_path}/config/newrelic.properties"]
   ->
   File["${plugin_path}/config/mysql.instance.json"]
   ->
-  Newrelic_plugins_puppet::Resource::Plugin_service['newrelic-mysql-plugin']
+  Newrelic_plugins::Resource::Plugin_service['newrelic-mysql-plugin']
 }
+

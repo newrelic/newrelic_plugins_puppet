@@ -1,4 +1,4 @@
-# = Class: newrelic_plugins_puppet::aws_cloudwatch_plugin
+# = Class: newrelic_plugins::aws_cloudwatch
 #
 # This class installs/configures/manages New Relic's AWS Cloudwatch Plugin. 
 # Only supported on Debian-derived and Red Hat-derived OSes.
@@ -30,7 +30,7 @@
 #
 # == Sample Usage:
 #
-#   class { 'newrelic_plugins_puppet::aws_cloudwatch_plugin':
+#   class { 'newrelic_plugins::aws_cloudwatch':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
 #     aws_access_key => 'AWS_ACCESS_KEY',
@@ -38,7 +38,7 @@
 #     agents         => [ 'ec2', 'ebs', 'elb' ]
 #   }
 #
-class newrelic_plugins_puppet::aws_cloudwatch_plugin (
+class newrelic_plugins::aws_cloudwatch (
     $license_key,
     $install_path,
     $version = '3.1.0',
@@ -51,7 +51,7 @@ class newrelic_plugins_puppet::aws_cloudwatch_plugin (
   include stdlib
 
   # verify ruby is installed
-  newrelic_plugins_puppet::resource::verify_ruby { 'AWS Cloudwatch Plugin': }
+  newrelic_plugins::resource::verify_ruby { 'AWS Cloudwatch Plugin': }
 
   # verify attributes
   validate_absolute_path($install_path)
@@ -62,7 +62,7 @@ class newrelic_plugins_puppet::aws_cloudwatch_plugin (
   validate_array($regions)
 
   # verify license_key
-  newrelic_plugins_puppet::resource::verify_license_key { 'Verify New Relic License Key': 
+  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key': 
     license_key => $license_key
   }
 
@@ -80,7 +80,7 @@ class newrelic_plugins_puppet::aws_cloudwatch_plugin (
   }
 
   # install plugin
-  newrelic_plugins_puppet::resource::install_plugin { 'newrelic_aws_cloudwatch_plugin':
+  newrelic_plugins::resource::install_plugin { 'newrelic_aws_cloudwatch_plugin':
     install_path => $install_path,
     download_url => "https://github.com/newrelic-platform/newrelic_aws_cloudwatch_plugin/archive/${version}.tar.gz",
     version => $version
@@ -91,16 +91,16 @@ class newrelic_plugins_puppet::aws_cloudwatch_plugin (
   # newrelic_plugin.yml template
   file { "${plugin_path}/config/newrelic_plugin.yml":
     ensure  => file,
-    content => template('newrelic_plugins_puppet/aws_cloudwatch/newrelic_plugin.yml.erb')
+    content => template('newrelic_plugins/aws_cloudwatch/newrelic_plugin.yml.erb')
   }
 
   # install bundler gem and run 'bundle install'
-  newrelic_plugins_puppet::resource::bundle_install { 'bundle install':
+  newrelic_plugins::resource::bundle_install { 'bundle install':
     plugin_path => $plugin_path
   }
   
   # install init.d script and start service
-  newrelic_plugins_puppet::resource::plugin_service { 'newrelic-aws-cloudwatch-plugin':
+  newrelic_plugins::resource::plugin_service { 'newrelic-aws-cloudwatch-plugin':
     daemon         => './bin/newrelic_aws',
     daemon_dir     => $plugin_path,
     plugin_name    => 'AWS Cloudwatch',
@@ -110,17 +110,18 @@ class newrelic_plugins_puppet::aws_cloudwatch_plugin (
   }
 
   # ordering
-  Newrelic_plugins_puppet::Resource::Verify_ruby['AWS Cloudwatch Plugin']
+  Newrelic_plugins::Resource::Verify_ruby['AWS Cloudwatch Plugin']
   ->
-  Newrelic_plugins_puppet::Resource::Verify_license_key['Verify New Relic License Key']
+  Newrelic_plugins::Resource::Verify_license_key['Verify New Relic License Key']
   ->
   Package[$nokogiri_packages]
   ->
-  Newrelic_plugins_puppet::Resource::Install_plugin['newrelic_aws_cloudwatch_plugin']
+  Newrelic_plugins::Resource::Install_plugin['newrelic_aws_cloudwatch_plugin']
   ->
   File["${plugin_path}/config/newrelic_plugin.yml"]
   ->
-  Newrelic_plugins_puppet::Resource::Bundle_install['bundle install']
+  Newrelic_plugins::Resource::Bundle_install['bundle install']
   ->
-  Newrelic_plugins_puppet::Resource::Plugin_service['newrelic-aws-cloudwatch-plugin']
+  Newrelic_plugins::Resource::Plugin_service['newrelic-aws-cloudwatch-plugin']
 }
+

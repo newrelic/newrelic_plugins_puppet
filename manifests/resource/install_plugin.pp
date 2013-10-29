@@ -1,4 +1,4 @@
-define newrelic_plugins_puppet::resource::install_plugin (
+define newrelic_plugins::resource::install_plugin (
   $install_path,
   $download_url,
   $version

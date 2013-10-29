@@ -1,4 +1,4 @@
-define newrelic_plugins_puppet::resource::plugin_service (
+define newrelic_plugins::resource::plugin_service (
   $daemon = '',
   $daemon_dir,
   $plugin_name,
@@ -8,7 +8,7 @@ define newrelic_plugins_puppet::resource::plugin_service (
 ) {
   file { "/etc/init.d/${name}":
     ensure  => file,
-    content => template('newrelic_plugins_puppet/service.erb'),
+    content => template('newrelic_plugins/service.erb'),
     mode    => 0755
   }
 
