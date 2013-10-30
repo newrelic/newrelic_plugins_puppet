@@ -24,7 +24,7 @@ class newrelic_plugins::params {
     $aws_cloudwatch_nokogiri_packages = ['libxml2-dev', 'libxslt-dev']
   }
   else {
-    $aws_cloydwatch_nokogiri_packages = ['libxml2', 'libxml2-devel', 'libxslt', 'libxslt-devel']
+    $aws_cloudwatch_nokogiri_packages = ['libxml2', 'libxml2-devel', 'libxslt', 'libxslt-devel']
   }
 }
 
