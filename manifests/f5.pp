@@ -1,6 +1,6 @@
-# = Class: newrelic_plugins_puppet::f5_plugin
+# = Class: newrelic_plugins::f5
 #
-# This class installs/configures/manages New Relic's F5 Plugin. 
+# This class installs/configures/manages New Relic's F5 Plugin.
 # Only supported on Debian-derived and Red Hat-derived OSes.
 #
 # == Parameters:
@@ -18,7 +18,7 @@
 #
 # == Sample Usage:
 #
-#   class { 'newrelic_plugins_puppet::f5_plugin':
+#   class { 'newrelic_plugins::f5':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
 #     agents         => [
@@ -31,17 +31,17 @@
 #     ]
 #   }
 #
-class newrelic_plugins_puppet::f5_plugin (
+class newrelic_plugins::f5 (
     $license_key,
     $install_path,
     $version = '1.0.7',
-    $agents
-) {
-  
+    $agents,
+) inherits params {
+
   include stdlib
 
   # verify ruby is installed
-  newrelic_plugins_puppet::resource::verify_ruby { 'F5 Plugin': }
+  newrelic_plugins::resource::verify_ruby { 'F5 Plugin': }
 
   # verify attributes
   validate_absolute_path($install_path)
@@ -49,7 +49,7 @@ class newrelic_plugins_puppet::f5_plugin (
   validate_array($agents)
 
   # verify license_key
-  newrelic_plugins_puppet::resource::verify_license_key { 'Verify New Relic License Key': 
+  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -62,7 +62,7 @@ class newrelic_plugins_puppet::f5_plugin (
   # create install directory
   exec { 'create install directory':
     command => "mkdir -p ${install_path}",
-    path    => $path,
+    path    => $::path,
     unless  => "test -d ${install_path}"
   }
 
@@ -74,11 +74,11 @@ class newrelic_plugins_puppet::f5_plugin (
   # newrelic_plugin.yml template
   file { "${install_path}/config/newrelic_plugin.yml":
     ensure  => file,
-    content => template('newrelic_plugins_puppet/f5/newrelic_plugin.yml.erb')
+    content => template('newrelic_plugins/f5/newrelic_plugin.yml.erb')
   }
-  
+
   # install init.d script and start service
-  newrelic_plugins_puppet::resource::plugin_service { 'newrelic-f5-plugin':
+  newrelic_plugins::resource::plugin_service { 'newrelic-f5-plugin':
     daemon_dir     => $install_path,
     plugin_name    => 'F5',
     plugin_version => $version,
@@ -87,9 +87,9 @@ class newrelic_plugins_puppet::f5_plugin (
   }
 
   # ordering
-  Newrelic_plugins_puppet::Resource::Verify_ruby['F5 Plugin']
+  Newrelic_plugins::Resource::Verify_ruby['F5 Plugin']
   ->
-  Newrelic_plugins_puppet::Resource::Verify_license_key['Verify New Relic License Key']
+  Newrelic_plugins::Resource::Verify_license_key['Verify New Relic License Key']
   ->
   Package['newrelic_f5_plugin']
   ->
@@ -99,5 +99,6 @@ class newrelic_plugins_puppet::f5_plugin (
   ->
   File["${install_path}/config/newrelic_plugin.yml"]
   ->
-  Newrelic_plugins_puppet::Resource::Plugin_service['newrelic-f5-plugin']
+  Newrelic_plugins::Resource::Plugin_service['newrelic-f5-plugin']
 }
+

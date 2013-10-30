@@ -1,2 +1,2 @@
-newrelic_plugins_puppet
+newrelic_plugins
 =======================
