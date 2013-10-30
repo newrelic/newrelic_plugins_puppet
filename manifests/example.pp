@@ -26,7 +26,7 @@
 class newrelic_plugins::example (
     $license_key,
     $install_path,
-    $version = '1.0.1',
+    $version = $newrelic_plugins::params::example_version,
 ) inherits params {
 
   include stdlib
@@ -46,7 +46,7 @@ class newrelic_plugins::example (
   # install plugin
   newrelic_plugins::resource::install_plugin { 'newrelic_example_plugin':
     install_path => $install_path,
-    download_url => "https://github.com/newrelic-platform/newrelic_example_plugin/archive/release/${version}.tar.gz",
+    download_url => "${newrelic_plugins::params::example_download_baseurl}/${version}.tar.gz",
     version      => $version
   }
 

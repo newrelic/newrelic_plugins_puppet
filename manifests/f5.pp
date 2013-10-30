@@ -34,7 +34,7 @@
 class newrelic_plugins::f5 (
     $license_key,
     $install_path,
-    $version = '1.0.7',
+    $version = $newrelic_plugins::params::f5_version,
     $agents,
 ) inherits params {
 

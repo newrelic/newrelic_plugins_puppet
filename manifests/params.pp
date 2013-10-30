@@ -26,5 +26,13 @@ class newrelic_plugins::params {
   else {
     $aws_cloudwatch_nokogiri_packages = ['libxml2', 'libxml2-devel', 'libxslt', 'libxslt-devel']
   }
+
+  $f5_version = '1.0.7'
+
+  $example_version = '1.0.1'
+  $example_download_baseurl = 'https://github.com/newrelic-platform/newrelic_example_plugin/archive/release'
+
+  $mysql_version = '1.0.7'
+  $mysql_download_baseurl = 'https://raw.github.com/newrelic-platform/newrelic_mysql_java_plugin/master/dist/newrelic_mysql_plugin'
 }
 

@@ -37,7 +37,7 @@
 class newrelic_plugins::mysql (
     $license_key,
     $install_path,
-    $version = '1.0.7',
+    $version = $newrelic_plugins::params::mysql_version,
     $servers,
 ) inherits params {
 
@@ -59,7 +59,7 @@ class newrelic_plugins::mysql (
   # install plugin
   newrelic_plugins::resource::install_plugin { 'newrelic_mysql_plugin':
     install_path => $install_path,
-    download_url => "https://raw.github.com/newrelic-platform/newrelic_mysql_java_plugin/master/dist/newrelic_mysql_plugin-${version}.tar.gz",
+    download_url => "${$newrelic_plugins::params::mysql_download_baseurl}-${version}.tar.gz",
     version      => $version
   }
 
