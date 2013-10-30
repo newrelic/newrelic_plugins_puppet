@@ -39,7 +39,7 @@ class newrelic_plugins::example (
   validate_string($version)
 
   # verify license_key
-  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
+  newrelic_plugins::resource::verify_license_key { 'Example Plugin: Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -59,7 +59,7 @@ class newrelic_plugins::example (
   }
 
   # install bundler gem and run 'bundle install'
-  newrelic_plugins::resource::bundle_install { 'bundle install':
+  newrelic_plugins::resource::bundle_install { 'Example Plugin: bundle install':
     plugin_path => $plugin_path
   }
 
@@ -76,13 +76,13 @@ class newrelic_plugins::example (
   # ordering
   Newrelic_plugins::Resource::Verify_ruby['Example Plugin']
   ->
-  Newrelic_plugins::Resource::Verify_license_key['Verify New Relic License Key']
+  Newrelic_plugins::Resource::Verify_license_key['Example Plugin: Verify New Relic License Key']
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_example_plugin']
   ->
   File["${plugin_path}/config/newrelic_plugin.yml"]
   ->
-  Newrelic_plugins::Resource::Bundle_install['bundle install']
+  Newrelic_plugins::Resource::Bundle_install['Example Plugin: bundle install']
   ->
   Newrelic_plugins::Resource::Plugin_service['newrelic-example-plugin']
 }

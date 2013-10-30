@@ -49,7 +49,7 @@ class newrelic_plugins::f5 (
   validate_array($agents)
 
   # verify license_key
-  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
+  newrelic_plugins::resource::verify_license_key { 'F5 Plugin: Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -89,7 +89,7 @@ class newrelic_plugins::f5 (
   # ordering
   Newrelic_plugins::Resource::Verify_ruby['F5 Plugin']
   ->
-  Newrelic_plugins::Resource::Verify_license_key['Verify New Relic License Key']
+  Newrelic_plugins::Resource::Verify_license_key['F5 Plugin: Verify New Relic License Key']
   ->
   Package['newrelic_f5_plugin']
   ->
