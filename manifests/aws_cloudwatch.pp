@@ -62,7 +62,7 @@ class newrelic_plugins::aws_cloudwatch (
   validate_array($regions)
 
   # verify license_key
-  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
+  newrelic_plugins::resource::verify_license_key { 'AWS Cloudwatch Plugin: Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -87,7 +87,7 @@ class newrelic_plugins::aws_cloudwatch (
   }
 
   # install bundler gem and run 'bundle install'
-  newrelic_plugins::resource::bundle_install { 'bundle install':
+  newrelic_plugins::resource::bundle_install { 'AWS Cloudwatch Plugin: bundle install':
     plugin_path => $plugin_path
   }
 
@@ -104,7 +104,7 @@ class newrelic_plugins::aws_cloudwatch (
   # ordering
   Newrelic_plugins::Resource::Verify_ruby['AWS Cloudwatch Plugin']
   ->
-  Newrelic_plugins::Resource::Verify_license_key['Verify New Relic License Key']
+  Newrelic_plugins::Resource::Verify_license_key['AWS Cloudwatch Plugin: Verify New Relic License Key']
   ->
   Package[$newrelic_plugins::params::aws_cloudwatch_nokogiri_packages]
   ->
@@ -112,7 +112,7 @@ class newrelic_plugins::aws_cloudwatch (
   ->
   File["${plugin_path}/config/newrelic_plugin.yml"]
   ->
-  Newrelic_plugins::Resource::Bundle_install['bundle install']
+  Newrelic_plugins::Resource::Bundle_install['AWS Cloudwatch Plugin: bundle install']
   ->
   Newrelic_plugins::Resource::Plugin_service['newrelic-aws-cloudwatch-plugin']
 }

@@ -52,7 +52,7 @@ class newrelic_plugins::mysql (
   validate_array($servers)
 
   # verify license_key
-  newrelic_plugins::resource::verify_license_key { 'Verify New Relic License Key':
+  newrelic_plugins::resource::verify_license_key { 'MySQL Plugin: Verify New Relic License Key':
     license_key => $license_key
   }
 
@@ -90,7 +90,7 @@ class newrelic_plugins::mysql (
   # ordering
   Newrelic_plugins::Resource::Verify_java['MySQL Plugin']
   ->
-  Newrelic_plugins::Resource::Verify_license_key['Verify New Relic License Key']
+  Newrelic_plugins::Resource::Verify_license_key['MySQL Plugin: Verify New Relic License Key']
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_mysql_plugin']
   ->

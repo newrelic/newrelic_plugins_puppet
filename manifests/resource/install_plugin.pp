@@ -5,7 +5,7 @@ define newrelic_plugins::resource::install_plugin (
 ) {
 
   # create install directory
-  exec { 'create install directory':
+  exec { "${name}: create ${install_path}":
     command => "mkdir -p ${install_path}",
     path    => $::path,
     unless  => "test -d ${install_path}"
