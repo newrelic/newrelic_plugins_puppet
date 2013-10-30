@@ -106,7 +106,7 @@ class newrelic_plugins::aws_cloudwatch (
   ->
   Newrelic_plugins::Resource::Verify_license_key['Verify New Relic License Key']
   ->
-  Package[$nokogiri_packages]
+  Package[$newrelic_plugins::params::aws_cloudwatch_nokogiri_packages]
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_aws_cloudwatch_plugin']
   ->
