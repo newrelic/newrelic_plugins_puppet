@@ -14,6 +14,10 @@
 #
 # $servers::         Array of MySQL server information.
 #
+# $java_options::    String of java options that will be passed to the init script java command. 
+#                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
+#                    for proxy support.
+#
 # == Requires:
 #
 #   puppetlabs/stdlib
@@ -39,6 +43,7 @@ class newrelic_plugins::mysql (
     $install_path,
     $version = $newrelic_plugins::params::mysql_version,
     $servers,
+    $java_options = '',
 ) inherits params {
 
   include stdlib
@@ -83,7 +88,7 @@ class newrelic_plugins::mysql (
     daemon_dir     => $plugin_path,
     plugin_name    => 'MySQL',
     plugin_version => $version,
-    run_command    => 'java -jar',
+    run_command    => "java ${java_options} -jar",
     service_name   => 'newrelic-mysql-plugin'
   }
 

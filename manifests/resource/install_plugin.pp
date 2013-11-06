@@ -20,7 +20,7 @@ define newrelic_plugins::resource::install_plugin (
     cwd     => $install_path,
     creates => "${install_path}/${file_name}",
     path    => $::path,
-    require => Exec['create install directory']
+    require => Exec["${name}: create ${install_path}"]
   }
 
   # extract plugin tar file

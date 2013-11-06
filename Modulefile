@@ -8,5 +8,4 @@ description 'Module for New Relic Plugin configuration'
 project_page 'https://github.com/newrelic-platform/newrelic_plugins_puppet'
 
 ## Add dependencies, if any:
-dependency 'puppetlabs/stdlib', '>= 2.4.0' # which version ???
-
+dependency 'puppetlabs/stdlib', '>= 2.4.0'
