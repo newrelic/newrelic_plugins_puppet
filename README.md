@@ -2,7 +2,7 @@
 
 ### Note: This Module is currently in Beta ###
 
-This module is currently in Beta and will be moved to the Puppet Forge site after the beta. To use the cookbook, clone or download this repo and add it to your Chef cookbooks path under the name `newrelic_plugins`. Follow the usage instructions below.
+This module is currently in Beta and will be moved to the Puppet Forge site after the beta. To use the module, clone or download this repo and add it to your Puppet modules path under the name `newrelic_plugins`. Follow the usage instructions below.
 
 Please provide any feedback to <jstenhouse@newrelic.com> or create a pull request here. Thanks!
 
