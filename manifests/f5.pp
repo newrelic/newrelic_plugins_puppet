@@ -12,6 +12,9 @@
 # $version::         New Relic F5 Plugin Version.
 #                    Currently defaults to the latest version.
 #
+# $agents::          Array of F5 agents that require a name, host
+#                    port and snmp_community.
+#
 # == Requires:
 #
 #   puppetlabs/stdlib

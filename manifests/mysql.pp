@@ -12,7 +12,8 @@
 # $version::         New Relic MySQL Plugin Version.
 #                    Currently defaults to the latest version.
 #
-# $servers::         Array of MySQL server information.
+# $servers::         Array of MySQL server information. If using the default username 
+#                    and password, the user and passwd attributes can be left off.
 #
 # $java_options::    String of java options that will be passed to the init script java command. 
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
