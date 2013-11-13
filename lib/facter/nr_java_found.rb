@@ -1,7 +1,7 @@
 Facter.add(:nr_java_found) do
   confine :kernel => :linux
   setcode do
-    ruby = Facter::Util::Resolution.exec('which java')
+    ruby = Facter::Util::Resolution.exec('which java 2>/dev/null')
     if ruby
       long_version = Facter::Util::Resolution.exec('/usr/bin/java -version 2>&1')
       version = long_version.split("\n")[0].split('"')[1]
