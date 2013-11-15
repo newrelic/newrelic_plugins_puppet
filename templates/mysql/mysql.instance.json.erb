@@ -1,15 +1,11 @@
 [
   <%- @servers.each do |server| %>
   {
-    "name"    : "<%= server['name'] %>",
+    <%- if server['name'] %>    "name"    : "<%= server['name'] %>", <%- else %>    "name"    : "<%= server['host'] %>", <%- end %>
     "host"    : "<%= server['host'] %>",
-    "metrics" : "<%= server['metrics'] %>",
-    <%- if server['user'] %>
-    "user"    : "<%= server['user'] %>",
-    <%- end %>
-    <%- if server['passwd'] %>
-    "passwd"  : "<%= server['passwd'] %>"
-    <%- end %>
+    <%- if server['metrics'] %>    "metrics"    : "<%= server['metrics'] %>", <%- else %>    "metrics"    : "<%= mysql_metrics %>", <%- end %>
+    <%- if server['user'] %>    "user"    : "<%= server['user'] %>", <%- else %>    "user"    : "<%= mysql_user %>", <%- end %>
+    <%- if server['passwd'] %>    "passwd"  : "<%= server['passwd'] %>" <%- else %>    "passwd"    : "<%= mysql_passwd %>", <%- end %>
   },
   <%- end %>
 ]
