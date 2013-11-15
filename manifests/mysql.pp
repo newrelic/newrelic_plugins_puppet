@@ -18,9 +18,12 @@
 #                    Note also that the "name" defaults to the same as the "host" 
 #                    unless overriden, and as such "name" is optional.
 #
-#  $mysql_metrics:: default set of metrics, can override in the servers information. 
-#  $mysql_user:: default username
-#  $mysql_passwd:: default password
+# $metrics::         Default set of metrics. Can override in $servers. 
+#
+# $user::            Default username. Can override in $servers.
+#
+# $passwd::          Default password. Can override in $servers.
+#
 # $java_options::    String of java options that will be passed to the init script java command. 
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
 #                    for proxy support.
@@ -34,13 +37,31 @@
 #   class { 'newrelic_plugins::mysql':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
-#     mysql_metrics  => 'status,newrelic',
+#     metrics        => 'status,newrelic',
+#     user           => 'USER_NAME_HERE',
+#     passwd         => 'USER_CLEAR_TEXT_PASSWORD_HERE'
 #     servers        => [
 #       {
-#         'name'    => 'Production Master',
-#         'host'    => 'localhost',
-#         'user'    => 'USER_NAME_HERE',
-#         'passwd'  => 'USER_CLEAR_TEXT_PASSWORD_HERE'
+#         name  => 'Production Master',
+#         host  => 'localhost'
+#       },
+#       {
+#         name  => 'Production Slave',
+#         host  => 'localhost'
+#       }
+#     ]
+#   }
+#
+#   class { 'newrelic_plugins::mysql':
+#     license_key    => 'NEW_RELIC_LICENSE_KEY',
+#     install_path   => '/path/to/plugin',
+#     servers        => [
+#       {
+#         name    => 'Production Master',
+#         host    => 'localhost',
+#         metrics => 'status,newrelic',
+#         user    => 'USER_NAME_HERE',
+#         passwd  => 'USER_CLEAR_TEXT_PASSWORD_HERE'
 #       }
 #     ]
 #   }
@@ -50,9 +71,9 @@ class newrelic_plugins::mysql (
     $install_path,
     $version = $newrelic_plugins::params::mysql_version,
     $servers,
-    $mysql_metrics,
-    $mysql_user,
-    $mysql_passwd,
+    $metrics = '',
+    $user = '',
+    $passwd = '',
     $java_options = '',
 ) inherits params {
 
