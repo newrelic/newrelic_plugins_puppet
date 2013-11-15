@@ -163,13 +163,38 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
 
 `install_path` - _(required)_ Install Directory
 
-`servers` - _(required)_ Array of MySQL server information. If using the default username and password, the `user`, `passwd` attributes can be left off.
+`servers` - _(required)_ Array of MySQL server information
+
+`metrics` - _(optional)_ Default set of metrics. Can be overriden in `servers`
+
+`user` - _(optional)_ Default user name. Can be overriden in `servers`
+
+`passwd` - _(optional)_ Default password. Can be overriden in `servers`
 
 `version` - _(optional)_ Plugin version. Defaults to latest release version
 
 `java_options` - _(optional)_ String of java options that will be passed to the init script java command. E.g. `-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345` for proxy support.
 
 ####Class
+
+    class { 'newrelic_plugins::mysql':
+      license_key    => 'NEW_RELIC_LICENSE_KEY',
+      install_path   => '/path/to/plugin',
+      metrics        => 'status,newrelic',
+      user           => 'USER_NAME_HERE',
+      passwd         => 'USER_CLEAR_TEXT_PASSWORD_HERE',
+      java_options   => '-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345',
+      servers        => [
+        {
+          name       => 'Production Master',
+          host       => 'master-host'
+        },
+        {
+          name       => 'Production Slave',
+          host       => 'slave-host'
+        }
+      ]
+    }
 
     class { 'newrelic_plugins::mysql':
       license_key    => 'NEW_RELIC_LICENSE_KEY',
