@@ -175,6 +175,8 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
 
 `java_options` - _(optional)_ String of java options that will be passed to the init script java command. E.g. `-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345` for proxy support.
 
+`java_memory_options` - _(optional)_ String of java memory options that will be passed to the init script java command. Defaults to `-Xmx128m` (max heap size of 128mb).
+
 ####Class
 
     class { 'newrelic_plugins::mysql':

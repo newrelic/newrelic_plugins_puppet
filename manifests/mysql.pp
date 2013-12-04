@@ -5,28 +5,31 @@
 #
 # == Parameters:
 #
-# $license_key::     License Key for your New Relic account
+# $license_key::          License Key for your New Relic account
 #
-# $install_path::    Install Path for New Relic MySQL Plugin
+# $install_path::         Install Path for New Relic MySQL Plugin
 #
-# $version::         New Relic MySQL Plugin Version.
-#                    Currently defaults to the latest version.
+# $version::              New Relic MySQL Plugin Version.
+#                         Currently defaults to the latest version.
 #
-# $servers::         Array of MySQL server information. If using the default username 
-#                    and password, the user and passwd attributes can be left off.
-#                    (see mysql_user and mysql_passwd)
-#                    Note also that the "name" defaults to the same as the "host" 
-#                    unless overriden, and as such "name" is optional.
+# $servers::              Array of MySQL server information. If using the default username
+#                         and password, the user and passwd attributes can be left off.
+#                         (see mysql_user and mysql_passwd)
+#                         Note also that the "name" defaults to the same as the "host"
+#                         unless overriden, and as such "name" is optional.
 #
-# $metrics::         Default set of metrics. Can override in $servers. 
+# $metrics::              Default set of metrics. Can override in $servers.
 #
-# $user::            Default username. Can override in $servers.
+# $user::                 Default username. Can override in $servers.
 #
-# $passwd::          Default password. Can override in $servers.
+# $passwd::               Default password. Can override in $servers.
 #
-# $java_options::    String of java options that will be passed to the init script java command. 
-#                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
-#                    for proxy support.
+# $java_options::         String of java options that will be passed to the init script java command.
+#                         E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
+#                         for proxy support.
+#
+# $java_memory_options::  String of java memory options that will be passed to the init script java command.
+#                         Defaults to -Xmx128m (max heap size of 128mb).
 #
 # == Requires:
 #
@@ -75,6 +78,7 @@ class newrelic_plugins::mysql (
     $user = '',
     $passwd = '',
     $java_options = '',
+    $java_memory_options = '-Xmx128m',
 ) inherits params {
 
   include stdlib
@@ -119,7 +123,7 @@ class newrelic_plugins::mysql (
     daemon_dir     => $plugin_path,
     plugin_name    => 'MySQL',
     plugin_version => $version,
-    run_command    => "java ${java_options} -jar",
+    run_command    => "java ${java_memory_options} ${java_options} -jar",
     service_name   => 'newrelic-mysql-plugin'
   }
 
