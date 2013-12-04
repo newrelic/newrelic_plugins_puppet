@@ -34,5 +34,6 @@ class newrelic_plugins::params {
 
   $mysql_version = '1.0.9'
   $mysql_download_baseurl = 'https://raw.github.com/newrelic-platform/newrelic_mysql_java_plugin/master/dist/newrelic_mysql_plugin'
+  $mysql_java_options = '-Xmx128m'
 }
 
