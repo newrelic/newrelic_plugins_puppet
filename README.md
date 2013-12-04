@@ -173,7 +173,7 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
 
 `version` - _(optional)_ Plugin version. Defaults to latest release version
 
-`java_options` - _(optional)_ String of java options that will be passed to the init script java command. E.g. `-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345` for proxy support.
+`java_options` - _(optional)_ String of java options that will be passed to the init script java command. E.g. `-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345` for proxy support. Defaults to `-Xmx128m` (max 128mb heap size) but may be overridden.
 
 ####Class
 

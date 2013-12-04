@@ -26,7 +26,7 @@
 #
 # $java_options::    String of java options that will be passed to the init script java command. 
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
-#                    for proxy support.
+#                    for proxy support. Defaults to -Xmx128m (max 128mb heap size).
 #
 # == Requires:
 #
@@ -74,7 +74,7 @@ class newrelic_plugins::mysql (
     $metrics = '',
     $user = '',
     $passwd = '',
-    $java_options = '',
+    $java_options = $newrelic_plugins::params::mysql_java_options,
 ) inherits params {
 
   include stdlib
