@@ -77,11 +77,11 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
       java_options   => '-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345',
       servers        => [
         {
-          name       => 'Production 1',
-          host       => 'localhost',
-          metrics    => 'status,newrelic',
-          user       => 'USER',
-          passwd     => 'PASSWORD'
+          name          => 'Production 1',
+          host          => 'localhost',
+          metrics       => 'status,newrelic',
+          mysql_user    => 'USER',
+          mysql_passwd  => 'CLEAR_TEXT_PASSWORD'
         }
       ]
     }
@@ -187,7 +187,7 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
 
 `mysql_user` - _(optional)_ Default user name. Can be overriden in `servers`
 
-`mysql_passwd` - _(optional)_ Default password. Can be overriden in `servers`
+`mysql_passwd` - _(optional)_ Default clear text password. Can be overriden in `servers`
 
 `version` - _(optional)_ Plugin version. Defaults to latest release version
 
