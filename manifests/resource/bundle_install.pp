@@ -1,4 +1,4 @@
-define newrelic_plugins::resource::bundle_install ($plugin_path) {
+define newrelic_plugins::resource::bundle_install ($plugin_path, $user) {
 
   unless defined(Package['bundler']) {
     # install bundler gem
@@ -11,8 +11,9 @@ define newrelic_plugins::resource::bundle_install ($plugin_path) {
   # bundle install
   exec { "${name}: bundle install":
     path        => $::path,
-    command     => 'bundle install',
+    command     => "sudo -u ${user} bundle install",
     cwd         => $plugin_path,
-    require     => Package['bundler']
+    require     => Package['bundler'],
+    user        => $user
   }
 }

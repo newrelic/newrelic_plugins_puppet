@@ -1,5 +1,6 @@
 define newrelic_plugins::resource::install_plugin (
   $install_path,
+  $user,
   $download_url,
   $version
 ) {
@@ -8,6 +9,7 @@ define newrelic_plugins::resource::install_plugin (
   exec { "${name}: create ${install_path}":
     command => "mkdir -p ${install_path}",
     path    => $::path,
+    user    => $user,
     unless  => "test -d ${install_path}"
   }
 
@@ -20,6 +22,7 @@ define newrelic_plugins::resource::install_plugin (
     cwd     => $install_path,
     creates => "${install_path}/${file_name}",
     path    => $::path,
+    user    => $user,
     require => Exec["${name}: create ${install_path}"]
   }
 
@@ -29,6 +32,7 @@ define newrelic_plugins::resource::install_plugin (
     cwd     => $install_path,
     creates => "${install_path}/${directory_name}",
     path    => $::path,
+    user    => $user,
     require => Exec["curl ${file_name}"]
   }
 }

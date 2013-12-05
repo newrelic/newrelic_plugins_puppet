@@ -9,6 +9,8 @@
 #
 # $install_path::    Install Path for New Relic F5 Plugin
 #
+# $user::            User to run as
+#
 # $version::         New Relic F5 Plugin Version.
 #                    Currently defaults to the latest version.
 #
@@ -24,6 +26,7 @@
 #   class { 'newrelic_plugins::f5':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
+#     user           => 'newrelic',
 #     agents         => [
 #       {
 #         name           => 'My F5',
@@ -37,6 +40,7 @@
 class newrelic_plugins::f5 (
     $license_key,
     $install_path,
+    $user,
     $version = $newrelic_plugins::params::f5_version,
     $agents,
 ) inherits params {
@@ -48,6 +52,7 @@ class newrelic_plugins::f5 (
 
   # verify attributes
   validate_absolute_path($install_path)
+  validate_string($user)
   validate_string($version)
   validate_array($agents)
 
@@ -66,18 +71,21 @@ class newrelic_plugins::f5 (
   exec { 'create install directory':
     command => "mkdir -p ${install_path}",
     path    => $::path,
-    unless  => "test -d ${install_path}"
+    unless  => "test -d ${install_path}",
+    user    => $user
   }
 
   file { "${install_path}/config":
     ensure  => directory,
-    mode    => '0644'
+    mode    => '0644',
+    owner   => $user
   }
 
   # newrelic_plugin.yml template
   file { "${install_path}/config/newrelic_plugin.yml":
     ensure  => file,
-    content => template('newrelic_plugins/f5/newrelic_plugin.yml.erb')
+    content => template('newrelic_plugins/f5/newrelic_plugin.yml.erb'),
+    owner   => $user
   }
 
   # install init.d script and start service
@@ -85,7 +93,7 @@ class newrelic_plugins::f5 (
     daemon_dir     => $install_path,
     plugin_name    => 'F5',
     plugin_version => $version,
-    run_command    => 'f5_monitor run',
+    run_command    => "sudo -u ${user} f5_monitor run",
     service_name   => 'newrelic-f5-plugin'
   }
 

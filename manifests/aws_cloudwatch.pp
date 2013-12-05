@@ -9,6 +9,8 @@
 #
 # $install_path::    Install Path for New Relic AWS Cloudwatch Plugin
 #
+# $user::            User to run as
+#
 # $version::         New Relic AWS Cloudwatch Plugin Version.
 #                    Currently defaults to the latest version.
 #
@@ -33,6 +35,7 @@
 #   class { 'newrelic_plugins::aws_cloudwatch':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
+#     user           => 'newrelic',
 #     aws_access_key => 'AWS_ACCESS_KEY',
 #     aws_secret_key => 'AWS_SECRET_KEY',
 #     agents         => [ 'ec2', 'ebs', 'elb' ]
@@ -41,6 +44,7 @@
 class newrelic_plugins::aws_cloudwatch (
     $license_key,
     $install_path,
+    $user,
     $aws_access_key,
     $aws_secret_key,
     $agents,
@@ -55,6 +59,7 @@ class newrelic_plugins::aws_cloudwatch (
 
   # verify attributes
   validate_absolute_path($install_path)
+  validate_string($user)
   validate_string($version)
   validate_string($aws_access_key)
   validate_string($aws_secret_key)
@@ -74,6 +79,7 @@ class newrelic_plugins::aws_cloudwatch (
   # install plugin
   newrelic_plugins::resource::install_plugin { 'newrelic_aws_cloudwatch_plugin':
     install_path => $install_path,
+    user         => $user,
     download_url => "${newrelic_plugins::params::aws_cloudwatch_download_baseurl}/${version}.tar.gz",
     version      => $version
   }
@@ -83,12 +89,14 @@ class newrelic_plugins::aws_cloudwatch (
   # newrelic_plugin.yml template
   file { "${plugin_path}/config/newrelic_plugin.yml":
     ensure  => file,
-    content => template('newrelic_plugins/aws_cloudwatch/newrelic_plugin.yml.erb')
+    content => template('newrelic_plugins/aws_cloudwatch/newrelic_plugin.yml.erb'),
+    owner   => $user
   }
 
   # install bundler gem and run 'bundle install'
   newrelic_plugins::resource::bundle_install { 'AWS Cloudwatch Plugin: bundle install':
-    plugin_path => $plugin_path
+    plugin_path => $plugin_path,
+    user        => $user
   }
 
   # install init.d script and start service
@@ -97,7 +105,7 @@ class newrelic_plugins::aws_cloudwatch (
     daemon_dir     => $plugin_path,
     plugin_name    => 'AWS Cloudwatch',
     plugin_version => $version,
-    run_command    => 'bundle exec',
+    run_command    => "sudo -u ${user} bundle exec",
     service_name   => 'newrelic-aws-cloudwatch-plugin'
   }
 
