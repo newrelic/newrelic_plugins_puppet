@@ -35,7 +35,7 @@
 #   class { 'newrelic_plugins::aws_cloudwatch':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
-#     newrelic       => 'newrelic',
+#     user           => 'newrelic',
 #     aws_access_key => 'AWS_ACCESS_KEY',
 #     aws_secret_key => 'AWS_SECRET_KEY',
 #     agents         => [ 'ec2', 'ebs', 'elb' ]
