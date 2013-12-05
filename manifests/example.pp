@@ -9,6 +9,8 @@
 #
 # $install_path::    Install Path for New Relic Example Plugin
 #
+# $user::            User to run as
+#
 # $version::         New Relic Example Plugin Version.
 #                    Currently defaults to the latest version.
 #
@@ -20,12 +22,14 @@
 #
 #   class { 'newrelic_plugins::example_plugin':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
-#     install_path   => '/path/to/plugin'
+#     install_path   => '/path/to/plugin',
+#     user           => 'newrelic'
 #   }
 #
 class newrelic_plugins::example (
     $license_key,
     $install_path,
+    $user,
     $version = $newrelic_plugins::params::example_version,
 ) inherits params {
 
@@ -37,6 +41,7 @@ class newrelic_plugins::example (
   # verify attributes
   validate_absolute_path($install_path)
   validate_string($version)
+  validate_string($user)
 
   # verify license_key
   newrelic_plugins::resource::verify_license_key { 'Example Plugin: Verify New Relic License Key':
@@ -47,7 +52,8 @@ class newrelic_plugins::example (
   newrelic_plugins::resource::install_plugin { 'newrelic_example_plugin':
     install_path => $install_path,
     download_url => "${newrelic_plugins::params::example_download_baseurl}/${version}.tar.gz",
-    version      => $version
+    version      => $version,
+    user         => $user
   }
 
   $plugin_path = "${install_path}/newrelic_example_plugin-release-${$version}"
@@ -55,12 +61,14 @@ class newrelic_plugins::example (
   # newrelic_plugin.yml template
   file { "${plugin_path}/config/newrelic_plugin.yml":
     ensure  => file,
-    content => template('newrelic_plugins/example/newrelic_plugin.yml.erb')
+    content => template('newrelic_plugins/example/newrelic_plugin.yml.erb'),
+    owner   => $user
   }
 
   # install bundler gem and run 'bundle install'
   newrelic_plugins::resource::bundle_install { 'Example Plugin: bundle install':
-    plugin_path => $plugin_path
+    plugin_path => $plugin_path,
+    user        => $user
   }
 
   # install init.d script and start service
@@ -69,7 +77,7 @@ class newrelic_plugins::example (
     daemon_dir     => $plugin_path,
     plugin_name    => 'Example',
     plugin_version => $version,
-    run_command    => 'bundle exec',
+    run_command    => "sudo -u ${user} bundle exec",
     service_name   => 'newrelic-example-plugin'
   }
 

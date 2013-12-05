@@ -9,6 +9,8 @@
 #
 # $install_path::    Install Path for New Relic MySQL Plugin
 #
+# $user::            User to run as
+#
 # $version::         New Relic MySQL Plugin Version.
 #                    Currently defaults to the latest version.
 #
@@ -20,9 +22,9 @@
 #
 # $metrics::         Default set of metrics. Can override in $servers. 
 #
-# $user::            Default username. Can override in $servers.
+# $mysql_user::      Default username. Can override in $servers.
 #
-# $passwd::          Default password. Can override in $servers.
+# $mysql_passwd::    Default password. Can override in $servers.
 #
 # $java_options::    String of java options that will be passed to the init script java command. 
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
@@ -37,9 +39,10 @@
 #   class { 'newrelic_plugins::mysql':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
+#     user           => 'newrelic',
 #     metrics        => 'status,newrelic',
-#     user           => 'USER_NAME_HERE',
-#     passwd         => 'USER_CLEAR_TEXT_PASSWORD_HERE'
+#     mysql_user     => 'USER_NAME_HERE',
+#     mysql_passwd   => 'USER_CLEAR_TEXT_PASSWORD_HERE',
 #     servers        => [
 #       {
 #         name  => 'Production Master',
@@ -57,11 +60,11 @@
 #     install_path   => '/path/to/plugin',
 #     servers        => [
 #       {
-#         name    => 'Production Master',
-#         host    => 'localhost',
-#         metrics => 'status,newrelic',
-#         user    => 'USER_NAME_HERE',
-#         passwd  => 'USER_CLEAR_TEXT_PASSWORD_HERE'
+#         name          => 'Production Master',
+#         host          => 'localhost',
+#         metrics       => 'status,newrelic',
+#         mysql_user    => 'USER_NAME_HERE',
+#         mysql_passwd  => 'USER_CLEAR_TEXT_PASSWORD_HERE'
 #       }
 #     ]
 #   }
@@ -69,11 +72,12 @@
 class newrelic_plugins::mysql (
     $license_key,
     $install_path,
+    $user,
     $version = $newrelic_plugins::params::mysql_version,
     $servers,
     $metrics = '',
-    $user = '',
-    $passwd = '',
+    $mysql_user = '',
+    $mysql_passwd = '',
     $java_options = $newrelic_plugins::params::mysql_java_options,
 ) inherits params {
 
@@ -84,6 +88,7 @@ class newrelic_plugins::mysql (
 
   # verify attributes
   validate_absolute_path($install_path)
+  validate_string($user)
   validate_string($version)
   validate_array($servers)
 
@@ -96,7 +101,8 @@ class newrelic_plugins::mysql (
   newrelic_plugins::resource::install_plugin { 'newrelic_mysql_plugin':
     install_path => $install_path,
     download_url => "${$newrelic_plugins::params::mysql_download_baseurl}-${version}.tar.gz",
-    version      => $version
+    version      => $version,
+    user         => $user
   }
 
   $plugin_path = "${install_path}/newrelic_mysql_plugin-${$version}"
@@ -104,13 +110,15 @@ class newrelic_plugins::mysql (
   # newrelic.properties template
   file { "${plugin_path}/config/newrelic.properties":
     ensure  => file,
-    content => template('newrelic_plugins/mysql/newrelic.properties.erb')
+    content => template('newrelic_plugins/mysql/newrelic.properties.erb'),
+    owner   => $user
   }
 
   # mysql.instance.json template
   file { "${plugin_path}/config/mysql.instance.json":
     ensure  => file,
-    content => template('newrelic_plugins/mysql/mysql.instance.json.erb')
+    content => template('newrelic_plugins/mysql/mysql.instance.json.erb'),
+    owner   => $user
   }
 
   # install init.d script and start service
@@ -119,7 +127,7 @@ class newrelic_plugins::mysql (
     daemon_dir     => $plugin_path,
     plugin_name    => 'MySQL',
     plugin_version => $version,
-    run_command    => "java ${java_options} -jar",
+    run_command    => "sudo -u ${user} java ${java_options} -jar",
     service_name   => 'newrelic-mysql-plugin'
   }
 

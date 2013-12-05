@@ -64,6 +64,7 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
     class { 'newrelic_plugins::aws_cloudwatch':
       license_key    => 'NEW_RELIC_LICENSE_KEY',
       install_path   => '/path/to/plugin',
+      user           => 'newrelic',
       aws_access_key => 'AWS_ACCESS_KEY',
       aws_secret_key => 'AWS_SECRET_KEY',
       agents         => [ 'ec2', 'ebs', 'elb' ]
@@ -72,6 +73,7 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
     class { 'newrelic_plugins::mysql':
       license_key    => 'NEW_RELIC_LICENSE_KEY',
       install_path   => '/path/to/plugin',
+      user           => 'newrelic',
       java_options   => '-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345',
       servers        => [
         {
@@ -92,6 +94,8 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
 
 `install_path` - _(required)_ Install Directory
 
+`user` - _(required)_ User to run as
+
 `aws_access_key` - _(required)_ AWS Cloudwatch Access Key
 
 `aws_secret_key` - _(required)_ AWS Cloudwatch Secret Key
@@ -107,6 +111,7 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
     class { 'newrelic_plugins::aws_cloudwatch':
       license_key    => 'NEW_RELIC_LICENSE_KEY',
       install_path   => '/path/to/plugin',
+      user           => 'newrelic',
       aws_access_key => 'AWS_ACCESS_KEY',
       aws_secret_key => 'AWS_SECRET_KEY',
       agents         => [ 'ec2', 'ebs', 'elb' ]
@@ -122,11 +127,14 @@ For additional info, see https://github.com/newrelic-platform/newrelic_aws_cloud
 
 `install_path` - _(required)_ Install Directory
 
+`user` - _(required)_ User to run as
+
 ####Class
 
     class { 'newrelic_plugins::example_plugin':
      license_key    => 'NEW_RELIC_LICENSE_KEY',
-     install_path   => '/path/to/plugin'
+     install_path   => '/path/to/plugin',
+     user           => 'newrelic'
     }
 
 For additional info, see https://github.com/newrelic-platform/newrelic_example_plugin
@@ -139,6 +147,8 @@ For additional info, see https://github.com/newrelic-platform/newrelic_example_p
 
 `install_path` - _(required)_ Install Directory
 
+`user` - _(required)_ User to run as
+
 `agents` - _(required)_ Array of F5 agents that require a name, host, port and snmp_community
 
 `version` - _(optional)_ Plugin version. Defaults to latest release version
@@ -148,6 +158,7 @@ For additional info, see https://github.com/newrelic-platform/newrelic_example_p
     class { 'newrelic_plugins::f5':
      license_key    => 'NEW_RELIC_LICENSE_KEY',
      install_path   => '/path/to/plugin',
+     user           => 'newrelic',
      agents         => [
        {
          name           => 'My F5',
@@ -168,13 +179,15 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
 
 `install_path` - _(required)_ Install Directory
 
+`user` - _(required)_ User to run as
+
 `servers` - _(required)_ Array of MySQL server information
 
 `metrics` - _(optional)_ Default set of metrics. Can be overriden in `servers`
 
-`user` - _(optional)_ Default user name. Can be overriden in `servers`
+`mysql_user` - _(optional)_ Default user name. Can be overriden in `servers`
 
-`passwd` - _(optional)_ Default password. Can be overriden in `servers`
+`mysql_passwd` - _(optional)_ Default password. Can be overriden in `servers`
 
 `version` - _(optional)_ Plugin version. Defaults to latest release version
 
@@ -185,9 +198,10 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
     class { 'newrelic_plugins::mysql':
       license_key    => 'NEW_RELIC_LICENSE_KEY',
       install_path   => '/path/to/plugin',
+      user           => 'newrelic',
       metrics        => 'status,newrelic',
-      user           => 'USER_NAME_HERE',
-      passwd         => 'USER_CLEAR_TEXT_PASSWORD_HERE',
+      mysql_user     => 'USER_NAME_HERE',
+      mysql_passwd   => 'USER_CLEAR_TEXT_PASSWORD_HERE',
       java_options   => '-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345',
       servers        => [
         {
@@ -204,21 +218,22 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
     class { 'newrelic_plugins::mysql':
       license_key    => 'NEW_RELIC_LICENSE_KEY',
       install_path   => '/path/to/plugin',
+      user           => 'newrelic',
       java_options   => '-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345',
       servers        => [
         {
-          name       => 'Production Master',
-          host       => 'master-host',
-          metrics    => 'status,newrelic,master',
-          user       => 'USER_NAME_HERE',
-          passwd     => 'USER_CLEAR_TEXT_PASSWORD_HERE'
+          name          => 'Production Master',
+          host          => 'master-host',
+          metrics       => 'status,newrelic,master',
+          mysql_user    => 'USER_NAME_HERE',
+          mysql_passwd  => 'USER_CLEAR_TEXT_PASSWORD_HERE'
         },
         {
-          name       => 'Production Slave',
-          host       => 'slave-host',
-          metrics    => 'status,newrelic,slave',
-          user       => 'USER_NAME_HERE',
-          passwd     => 'USER_CLEAR_TEXT_PASSWORD_HERE'
+          name          => 'Production Slave',
+          host          => 'slave-host',
+          metrics       => 'status,newrelic,slave',
+          mysql_user    => 'USER_NAME_HERE',
+          mysql_passwd  => 'USER_CLEAR_TEXT_PASSWORD_HERE'
         }
       ]
     }
