@@ -44,6 +44,11 @@ The MySQL plugin requires:
 
 - Java Runtime Environment (JRE) >= 1.6
 
+There are several Java and Ruby Puppet Modules available on Puppet Forge.
+
+- https://forge.puppetlabs.com/puppetlabs/java
+- https://forge.puppetlabs.com/puppetlabs/ruby
+
 ###What New Relic Plugins affect
 
  - Creates installation path
