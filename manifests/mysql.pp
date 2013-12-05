@@ -24,7 +24,7 @@
 #
 # $mysql_user::      Default username. Can override in $servers.
 #
-# $mysql_passwd::    Default password. Can override in $servers.
+# $mysql_passwd::    Default clear text password. Can override in $servers.
 #
 # $java_options::    String of java options that will be passed to the init script java command. 
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
