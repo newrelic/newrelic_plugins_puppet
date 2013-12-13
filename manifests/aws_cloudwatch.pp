@@ -7,7 +7,10 @@
 #
 # $license_key::     License Key for your New Relic account
 #
-# $install_path::    Install Path for New Relic AWS Cloudwatch Plugin
+# $install_path::    Install Path for New Relic AWS Cloudwatch Plugin. 
+#                    Any downloaded files will be placed here. The plugin 
+#                    will be installed within this directory at 
+#                    `newrelic_aws_cloudwatch_plugin`.
 #
 # $user::            User to run as
 #
@@ -76,15 +79,16 @@ class newrelic_plugins::aws_cloudwatch (
     ensure => present;
   }
 
+  $plugin_path = "${install_path}/newrelic_aws_cloudwatch_plugin"
+
   # install plugin
   newrelic_plugins::resource::install_plugin { 'newrelic_aws_cloudwatch_plugin':
     install_path => $install_path,
+    plugin_path  => $plugin_path,
     user         => $user,
     download_url => "${newrelic_plugins::params::aws_cloudwatch_download_baseurl}/${version}.tar.gz",
     version      => $version
   }
-
-  $plugin_path = "${install_path}/newrelic_aws_cloudwatch_plugin-${$version}"
 
   # newrelic_plugin.yml template
   file { "${plugin_path}/config/newrelic_plugin.yml":

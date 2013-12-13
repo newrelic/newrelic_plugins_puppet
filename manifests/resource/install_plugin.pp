@@ -1,5 +1,6 @@
 define newrelic_plugins::resource::install_plugin (
   $install_path,
+  $plugin_path,
   $user,
   $download_url,
   $version
@@ -13,26 +14,34 @@ define newrelic_plugins::resource::install_plugin (
     unless  => "test -d ${install_path}"
   }
 
-  $directory_name = "${name}-${version}"
-  $file_name      = "${directory_name}.tar.gz"
+  $tar_file = "${name}-${version}.tar.gz"
 
   # download plugin tar file
-  exec { "curl ${file_name}":
-    command => "curl -L -o ${file_name} ${download_url}",
+  exec { "curl ${tar_file}":
+    command => "curl -L -o ${tar_file} ${download_url}",
     cwd     => $install_path,
-    creates => "${install_path}/${file_name}",
     path    => $::path,
     user    => $user,
-    require => Exec["${name}: create ${install_path}"]
+    onlyif  => "test -d ${install_path}",
+    unless  => "test -f ${tar_file}",
+    notify  => Exec["${name}: create ${plugin_path}"]
   }
 
-  # extract plugin tar file
-  exec { "extract ${file_name}":
-    command => "tar zxvf ${install_path}/${file_name}",
-    cwd     => $install_path,
-    creates => "${install_path}/${directory_name}",
-    path    => $::path,
-    user    => $user,
-    require => Exec["curl ${file_name}"]
+  # remove/recreate plugin path directory only after curling tar file
+  exec { "${name}: create ${plugin_path}":
+    command     => "[ -d ${plugin_path} ] && (rm -r ${plugin_path} && mkdir ${plugin_path}) || mkdir ${plugin_path}",
+    path        => $::path,
+    user        => $user,
+    notify      => Exec["extract ${tar_file}"],
+    refreshonly => true
+  }
+
+  # extract plugin tar file only after create plugin directory
+  exec { "extract ${tar_file}":
+    command     => "tar zxvf ${install_path}/${tar_file} --strip-components=1",
+    cwd         => $plugin_path,
+    path        => $::path,
+    user        => $user,
+    refreshonly => true
   }
 }

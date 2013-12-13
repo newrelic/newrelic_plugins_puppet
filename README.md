@@ -92,7 +92,7 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
 
 `license_key` - _(required)_ New Relic License Key
 
-`install_path` - _(required)_ Install Directory
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_aws_cloudwatch_plugin`.
 
 `user` - _(required)_ User to run as
 
@@ -125,7 +125,7 @@ For additional info, see https://github.com/newrelic-platform/newrelic_aws_cloud
 
 `license_key` - _(required)_ New Relic License Key
 
-`install_path` - _(required)_ Install Directory
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_example_plugin`.
 
 `user` - _(required)_ User to run as
 
@@ -145,7 +145,7 @@ For additional info, see https://github.com/newrelic-platform/newrelic_example_p
 
 `license_key` - _(required)_ New Relic License Key
 
-`install_path` - _(required)_ Install Directory
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_f5_plugin`.
 
 `user` - _(required)_ User to run as
 
@@ -177,7 +177,7 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
 
 `license_key` - _(required)_ New Relic License Key
 
-`install_path` - _(required)_ Install Directory
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_mysql_plugin`.
 
 `user` - _(required)_ User to run as
 
