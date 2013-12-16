@@ -7,7 +7,10 @@
 #
 # $license_key::     License Key for your New Relic account
 #
-# $install_path::    Install Path for New Relic Example Plugin
+# $install_path::    Install Path for New Relic Example Plugin.
+#                    Any downloaded files will be placed here. 
+#                    The plugin will be installed within this 
+#                    directory at `newrelic_example_plugin`.
 #
 # $user::            User to run as
 #
@@ -48,15 +51,16 @@ class newrelic_plugins::example (
     license_key => $license_key
   }
 
+  $plugin_path = "${install_path}/newrelic_example_plugin"
+
   # install plugin
   newrelic_plugins::resource::install_plugin { 'newrelic_example_plugin':
     install_path => $install_path,
+    plugin_path  => $plugin_path,
     download_url => "${newrelic_plugins::params::example_download_baseurl}/${version}.tar.gz",
     version      => $version,
     user         => $user
   }
-
-  $plugin_path = "${install_path}/newrelic_example_plugin-release-${$version}"
 
   # newrelic_plugin.yml template
   file { "${plugin_path}/config/newrelic_plugin.yml":

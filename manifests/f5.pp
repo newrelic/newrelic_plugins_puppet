@@ -7,7 +7,10 @@
 #
 # $license_key::     License Key for your New Relic account
 #
-# $install_path::    Install Path for New Relic F5 Plugin
+# $install_path::    Install Path for New Relic F5 Plugin. 
+#                    Any downloaded files will be placed here. 
+#                    The plugin will be installed within this 
+#                    directory at `newrelic_f5_plugin`.
 #
 # $user::            User to run as
 #
@@ -67,22 +70,24 @@ class newrelic_plugins::f5 (
     provider => gem
   }
 
+  $plugin_path = "${install_path}/newrelic_f5_plugin"
+
   # create install directory
   exec { 'create install directory':
-    command => "mkdir -p ${install_path}",
+    command => "mkdir -p ${plugin_path}",
     path    => $::path,
-    unless  => "test -d ${install_path}",
+    unless  => "test -d ${plugin_path}",
     user    => $user
   }
 
-  file { "${install_path}/config":
+  file { "${plugin_path}/config":
     ensure  => directory,
     mode    => '0644',
     owner   => $user
   }
 
   # newrelic_plugin.yml template
-  file { "${install_path}/config/newrelic_plugin.yml":
+  file { "${plugin_path}/config/newrelic_plugin.yml":
     ensure  => file,
     content => template('newrelic_plugins/f5/newrelic_plugin.yml.erb'),
     owner   => $user
@@ -90,7 +95,7 @@ class newrelic_plugins::f5 (
 
   # install init.d script and start service
   newrelic_plugins::resource::plugin_service { 'newrelic-f5-plugin':
-    daemon_dir     => $install_path,
+    daemon_dir     => $plugin_path,
     plugin_name    => 'F5',
     plugin_version => $version,
     run_command    => "sudo -u ${user} f5_monitor run",
@@ -106,9 +111,9 @@ class newrelic_plugins::f5 (
   ->
   Exec['create install directory']
   ->
-  File["${install_path}/config"]
+  File["${plugin_path}/config"]
   ->
-  File["${install_path}/config/newrelic_plugin.yml"]
+  File["${plugin_path}/config/newrelic_plugin.yml"]
   ->
   Newrelic_plugins::Resource::Plugin_service['newrelic-f5-plugin']
 }

@@ -7,7 +7,10 @@
 #
 # $license_key::     License Key for your New Relic account
 #
-# $install_path::    Install Path for New Relic MySQL Plugin
+# $install_path::    Install Path for New Relic MySQL Plugin.
+#                    Any downloaded files will be placed here. 
+#                    The plugin will be installed within this 
+#                    directory at `newrelic_mysql_plugin`.
 #
 # $user::            User to run as
 #
@@ -97,28 +100,31 @@ class newrelic_plugins::mysql (
     license_key => $license_key
   }
 
+  $plugin_path = "${install_path}/newrelic_mysql_plugin"
+
   # install plugin
   newrelic_plugins::resource::install_plugin { 'newrelic_mysql_plugin':
     install_path => $install_path,
+    plugin_path  => $plugin_path,
     download_url => "${$newrelic_plugins::params::mysql_download_baseurl}-${version}.tar.gz",
     version      => $version,
     user         => $user
   }
 
-  $plugin_path = "${install_path}/newrelic_mysql_plugin-${$version}"
-
   # newrelic.properties template
   file { "${plugin_path}/config/newrelic.properties":
     ensure  => file,
     content => template('newrelic_plugins/mysql/newrelic.properties.erb'),
-    owner   => $user
+    owner   => $user,
+    notify  => Service['newrelic-mysql-plugin']
   }
 
   # mysql.instance.json template
   file { "${plugin_path}/config/mysql.instance.json":
     ensure  => file,
     content => template('newrelic_plugins/mysql/mysql.instance.json.erb'),
-    owner   => $user
+    owner   => $user,
+    notify  => Service['newrelic-mysql-plugin']
   }
 
   # install init.d script and start service
