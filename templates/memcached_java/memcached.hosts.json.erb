@@ -1,0 +1,9 @@
+[
+  <%- @servers.each do |server| %>
+  {
+    "name"    : "<%= !server['name'].nil? ? server['name'] : server['host'] %>",
+    "host"    : "<%= server['host'] %>"
+    "port"    : <%= server['port'] %>
+  },
+  <%- end %>
+]

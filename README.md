@@ -29,6 +29,8 @@ The following New Relic plugins are supported through this module:
  - AWS Cloudwatch
  - MySQL
  - F5
+ - Memcached (Java)
+ - Memcached (Ruby)
  - Example
 
 ##Setup
@@ -171,6 +173,37 @@ For additional info, see https://github.com/newrelic-platform/newrelic_example_p
 
 For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
 
+###Memcached (Ruby)
+
+####Parameters
+
+`license_key` - _(required)_ New Relic License Key
+
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_memcached_ruby_plugin`.
+
+`user` - _(required)_ User to run as
+
+`agents` - _(required)_ Array of Memcached hosts that require a name and host and take an optional port.
+
+`version` - _(optional)_ Plugin version. Defaults to latest release version
+
+####Class
+
+    class { 'newrelic_plugins::memcached_ruby':
+     license_key    => 'NEW_RELIC_LICENSE_KEY',
+     install_path   => '/path/to/plugin',
+     user           => 'newrelic',
+     agents         => [
+       {
+         name     => 'Memcached Host - 1',
+         endpoint => 'memcached.example.com',
+         port     => 11211
+       }
+     ]
+    }
+
+For additional info, see https://github.com/newrelic-platform/newrelic_memcached_plugin
+
 ###MySQL Plugin
 
 ####Parameters
@@ -239,6 +272,44 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
     }
 
 For additional info, see https://github.com/newrelic-platform/newrelic_mysql_java_plugin
+
+###Memcached (Java)
+
+####Parameters
+
+`license_key` - _(required)_ New Relic License Key
+
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_memcached_java_plugin`.
+
+`user` - _(required)_ User to run as
+
+`servers` - _(required)_ Array of Memcached server information
+
+`version` - _(optional)_ Plugin version. Defaults to latest release version
+
+`java_options` - _(optional)_ String of java options that will be passed to the init script java command. E.g. `-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345` for proxy support. Defaults to `-Xmx128m` (max 128mb heap size) but may be overridden.
+
+####Class
+
+    class { 'newrelic_plugins::memcached_java':
+      license_key    => 'NEW_RELIC_LICENSE_KEY',
+      install_path   => '/path/to/plugin',
+      user           => 'newrelic',
+      java_options   => '-Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345',
+      servers        => [
+        {
+          name          => 'Production Master',
+          host          => 'host.example.com',
+          port          => 11211
+        },
+        {
+          name          => 'Memcached Host - 2',
+          host          => 'host2.example.com'
+        }
+      ]
+    }
+
+For additional info, see https://github.com/newrelic-platform/newrelic_memcached_java_plugin
 
 ##Limitations
 
