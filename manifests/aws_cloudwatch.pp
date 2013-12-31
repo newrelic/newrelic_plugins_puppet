@@ -76,7 +76,8 @@ class newrelic_plugins::aws_cloudwatch (
 
   # nokogiri packages
   package { $newrelic_plugins::params::aws_cloudwatch_nokogiri_packages:
-    ensure => present;
+    ensure => present,
+    before => Newrelic_plugins::Resource::Install_plugin['newrelic_aws_cloudwatch_plugin'] # for puppet 2.x support
   }
 
   $plugin_path = "${install_path}/newrelic_aws_cloudwatch_plugin"
@@ -117,8 +118,6 @@ class newrelic_plugins::aws_cloudwatch (
   Newrelic_plugins::Resource::Verify_ruby['AWS Cloudwatch Plugin']
   ->
   Newrelic_plugins::Resource::Verify_license_key['AWS Cloudwatch Plugin: Verify New Relic License Key']
-  ->
-  Package[$newrelic_plugins::params::aws_cloudwatch_nokogiri_packages]
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_aws_cloudwatch_plugin']
   ->
