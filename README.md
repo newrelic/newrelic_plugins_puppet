@@ -30,17 +30,19 @@ The following New Relic plugins are supported through this module:
  - MySQL
  - F5
  - Example
+ - Wikipedia Example Java
+ - Wikipedia Example Ruby
 
 ##Setup
 
 ###Requirements
 
-The AWS Cloudwatch, F5 and Example plugins require:
+The AWS Cloudwatch, F5, Example and Wikipedia Example Ruby plugins require:
 
-- Ruby >= 1.8.7 
+- Ruby >= 1.8.7
 - Rubygems >= 1.8
 
-The MySQL plugin requires: 
+The MySQL and Wikipedia Example Java plugins require: 
 
 - Java Runtime Environment (JRE) >= 1.6
 
@@ -239,6 +241,50 @@ For additional info, see https://github.com/newrelic-platform/newrelic_f5_plugin
     }
 
 For additional info, see https://github.com/newrelic-platform/newrelic_mysql_java_plugin
+
+###Wikipedia Example Java
+
+####Parameters
+
+`license_key` - _(required)_ New Relic License Key
+
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_wikipedia_example_java_plugin`.
+
+`user` - _(required)_ User to run as
+
+`version` - _(optional)_ Plugin version. Defaults to latest release version.
+
+####Class
+
+    class { 'newrelic_plugins::wikipedia_example_java':
+      license_key    => 'NEW_RELIC_LICENSE_KEY',
+      install_path   => '/path/to/plugin',
+      user           => 'newrelic'
+    }
+
+For additional info, see https://github.com/newrelic-platform/newrelic_java_wikipedia_plugin
+
+###Wikipedia Example Ruby
+
+####Parameters
+
+`license_key` - _(required)_ New Relic License Key
+
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_wikipedia_example_ruby_plugin`.
+
+`user` - _(required)_ User to run as
+
+`version` - _(optional)_ Plugin version. Defaults to latest release version.
+
+####Class
+
+    class { 'newrelic_plugins::wikipedia_example_ruby':
+      license_key    => 'NEW_RELIC_LICENSE_KEY',
+      install_path   => '/path/to/plugin',
+      user           => 'newrelic'
+    }
+
+For additional info, see https://github.com/newrelic-platform/newrelic_ruby_wikipedia_plugin
 
 ##Limitations
 

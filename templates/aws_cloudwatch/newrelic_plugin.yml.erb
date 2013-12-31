@@ -38,6 +38,10 @@ agents:
   # Available agents: ec2, ebs, elb, rds, sqs, sns, and ec
   # Note: Overview dashboards are being deprecated
   #
+  # An optional cloudwatch_delay attribute can be added for each agent
+  # which adjusts the time window in seconds for CloudWatch querying.
+  # Some of the Cloudwatch metrics are not immediately available and may 
+  # require a delay before being queried.
 <% @agents.each do |agent| -%>
   <%= agent %>:
     overview: false
