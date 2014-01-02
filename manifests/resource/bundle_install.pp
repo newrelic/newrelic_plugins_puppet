@@ -1,6 +1,6 @@
 define newrelic_plugins::resource::bundle_install ($plugin_path, $user) {
 
-  unless defined(Package['bundler']) {
+  if !(defined(Package['bundler'])) {
     # install bundler gem
     package { 'bundler' :
       ensure   => present,
