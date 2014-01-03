@@ -29,12 +29,19 @@ class newrelic_plugins::params {
 
   $f5_version = '1.0.7'
 
+  $memcached_ruby_version = '1.0.1'
+  $memcached_ruby_download_baseurl = 'https://github.com/newrelic-platform/newrelic_memcached_plugin/archive/release'
+
   $example_version = '1.0.1'
   $example_download_baseurl = 'https://github.com/newrelic-platform/newrelic_example_plugin/archive/release'
 
   $mysql_version = '1.1.0'
   $mysql_download_baseurl = 'https://raw.github.com/newrelic-platform/newrelic_mysql_java_plugin/master/dist/newrelic_mysql_plugin'
   $mysql_java_options = '-Xmx128m'
+
+  $memcached_java_version = '1.0.1'
+  $memcached_java_options = '-Xmx128m'
+  $memcached_java_download_baseurl = 'https://raw.github.com/newrelic-platform/newrelic_memcached_java_plugin/master/dist/newrelic_memcached_plugin'
 
   $wikipedia_example_java_version = '1.0.8'
   $wikipedia_example_java_download_baseurl = 'https://github.com/newrelic-platform/newrelic_java_wikipedia_plugin/raw/master/dist/newrelic_wikipedia_plugin'
