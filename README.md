@@ -26,14 +26,15 @@ This module installs, configures and manages as a service, New Relic Plugins on 
 
 The following New Relic plugins are supported through this module:
 
- - AWS Cloudwatch
- - MySQL
- - F5
- - Memcached (Java)
- - Memcached (Ruby)
- - Example
- - Wikipedia Example Java
- - Wikipedia Example Ruby
+ - [AWS Cloudwatch](#aws-cloudwatch-plugin)
+ - [MySQL](#mysql-plugin)
+ - [F5](#f-plugin)
+ - [Memcached (Java)](#memcached-java)
+ - [Memcached (Ruby)](#memcached-ruby)
+ - [Rackspace Load Balancers](#rackspace-load-balancers-plugin)
+ - [Example](#example-plugin)
+ - [Wikipedia Example Java](#wikipedia-example-java)
+ - [Wikipedia Example Ruby](#wikipedia-example-ruby)
 
 ##Setup
 
@@ -310,6 +311,37 @@ For additional info, see https://github.com/newrelic-platform/newrelic_memcached
     }
 
 For additional info, see https://github.com/newrelic-platform/newrelic_mysql_java_plugin
+
+###Rackspace Load Balancers Plugin
+
+####Parameters
+
+`license_key` - _(required)_ New Relic License Key
+
+`install_path` - _(required)_ Install Directory. Any downloaded files will be placed here. The plugin will be installed within this directory at `newrelic_rackspace_load_balancers_plugin`.
+
+`user` - _(required)_ User to run as
+
+`username` - _(required)_ Username for Rackspace Load Balancers
+
+`api_key` - _(required)_ API Key for Rackspace Load Balancers
+
+`region` - _(required)_ Region for Rackspace Load Balancers. Valid regions are: `ord`, `dfw`, and `lon`.
+
+`version` - _(optional)_ Plugin version. Defaults to latest release version
+
+####Class
+
+    class { 'newrelic_plugins::rackspace_load_balancers':
+      license_key    => 'NEW_RELIC_LICENSE_KEY',
+      install_path   => '/path/to/plugin',
+      user           => 'newrelic',
+      username       => 'RACKSPACE_USERNAME',
+      api_key        => 'RACKSPACE_API_KEY',
+      region         => 'dfw'
+    }
+
+For additional info, see https://github.com/newrelic-platform/newrelic_rackspace_load_balancers_plugin
 
 ###Wikipedia Example Java
 

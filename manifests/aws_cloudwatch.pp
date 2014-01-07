@@ -75,7 +75,7 @@ class newrelic_plugins::aws_cloudwatch (
   }
 
   # nokogiri packages
-  package { $newrelic_plugins::params::aws_cloudwatch_nokogiri_packages:
+  package { $newrelic_plugins::params::nokogiri_packages:
     ensure => present,
     before => Newrelic_plugins::Resource::Install_plugin['newrelic_aws_cloudwatch_plugin'] # for puppet 2.x support
   }

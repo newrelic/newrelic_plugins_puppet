@@ -21,10 +21,10 @@ class newrelic_plugins::params {
 
   # nokogiri dependencies
   if $::osfamily == 'Debian' {
-    $aws_cloudwatch_nokogiri_packages = ['libxml2-dev', 'libxslt-dev']
+    $nokogiri_packages = ['libxml2-dev', 'libxslt-dev']
   }
   else {
-    $aws_cloudwatch_nokogiri_packages = ['libxml2', 'libxml2-devel', 'libxslt', 'libxslt-devel']
+    $nokogiri_packages = ['libxml2', 'libxml2-devel', 'libxslt', 'libxslt-devel']
   }
 
   $f5_version = '1.0.7'
@@ -42,6 +42,9 @@ class newrelic_plugins::params {
   $memcached_java_version = '1.0.1'
   $memcached_java_options = '-Xmx128m'
   $memcached_java_download_baseurl = 'https://raw.github.com/newrelic-platform/newrelic_memcached_java_plugin/master/dist/newrelic_memcached_plugin'
+
+  $rackspace_load_balancers_version = '1.2.0'
+  $rackspace_load_balancers_download_baseurl = 'https://github.com/newrelic-platform/newrelic_rackspace_load_balancers_plugin/archive'
 
   $wikipedia_example_java_version = '1.0.8'
   $wikipedia_example_java_download_baseurl = 'https://github.com/newrelic-platform/newrelic_java_wikipedia_plugin/raw/master/dist/newrelic_wikipedia_plugin'
