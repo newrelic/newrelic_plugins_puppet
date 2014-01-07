@@ -6,15 +6,16 @@ define newrelic_plugins::resource::install_plugin (
   $version
 ) {
 
+  $tar_file = "${name}-${version}.tar.gz"
+
   # create install directory
   exec { "${name}: create ${install_path}":
     command => "mkdir -p ${install_path}",
     path    => $::path,
     user    => $user,
-    unless  => "test -d ${install_path}"
+    unless  => "test -d ${install_path}",
+    before  => Exec["curl ${tar_file}"]
   }
-
-  $tar_file = "${name}-${version}.tar.gz"
 
   # download plugin tar file
   exec { "curl ${tar_file}":
