@@ -1,11 +1,5 @@
 #newrelic_plugins
 
-### Note: This Module is currently in Beta ###
-
-This module is currently in Beta and will be moved to the Puppet Forge site after the beta. To use the module, clone or download this repo and add it to your Puppet modules path under the name `newrelic_plugins`. Follow the usage instructions below.
-
-Please provide any feedback to <jstenhouse@newrelic.com> or create a pull request here. Thanks!
-
 ####Table of Contents
 
 1. [Overview](#overview)
@@ -21,6 +15,8 @@ Please provide any feedback to <jstenhouse@newrelic.com> or create a pull reques
 ##Overview
 
 This module installs, configures and manages as a service, New Relic Plugins on Debian/RHEL.
+
+To use the module, add it to your Puppet modules path under the name `newrelic_plugins`.
 
 ##Module Description
 
