@@ -1,5 +1,5 @@
 name 'newrelic-newrelic_plugins'
-version '0.0.1'
+version '1.0.0'
 source 'git://github.com/newrelic-platform/newrelic_plugins_puppet.git'
 author 'newrelic'
 license 'MIT'
