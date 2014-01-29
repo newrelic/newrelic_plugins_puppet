@@ -1,4 +1,4 @@
-#newrelic_plugins
+#New Relic Plugins
 
 ####Table of Contents
 
