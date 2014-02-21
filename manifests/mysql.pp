@@ -82,6 +82,8 @@ class newrelic_plugins::mysql (
     $mysql_user = '',
     $mysql_passwd = '',
     $java_options = $newrelic_plugins::params::mysql_java_options,
+    $newrelic_properties_template = 'newrelic_plugins/mysql/newrelic.properties.erb',
+    $mysql_instance_template = 'newrelic_plugins/mysql/mysql.instance.json.erb',
 ) inherits params {
 
   include stdlib
@@ -114,7 +116,7 @@ class newrelic_plugins::mysql (
   # newrelic.properties template
   file { "${plugin_path}/config/newrelic.properties":
     ensure  => file,
-    content => template('newrelic_plugins/mysql/newrelic.properties.erb'),
+    content => template($newrelic_properties_template),
     owner   => $user,
     notify  => Service['newrelic-mysql-plugin']
   }
@@ -122,7 +124,7 @@ class newrelic_plugins::mysql (
   # mysql.instance.json template
   file { "${plugin_path}/config/mysql.instance.json":
     ensure  => file,
-    content => template('newrelic_plugins/mysql/mysql.instance.json.erb'),
+    content => template($mysql_instance_template),
     owner   => $user,
     notify  => Service['newrelic-mysql-plugin']
   }
