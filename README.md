@@ -24,7 +24,7 @@ The following New Relic plugins are supported through this module:
 
  - [AWS Cloudwatch](#aws-cloudwatch-plugin)
  - [MySQL](#mysql-plugin)
- - [F5](#f-plugin)
+ - [F5](#f5-plugin)
  - [Memcached (Java)](#memcached-java)
  - [Memcached (Ruby)](#memcached-ruby)
  - [Rackspace Load Balancers](#rackspace-load-balancers-plugin)
