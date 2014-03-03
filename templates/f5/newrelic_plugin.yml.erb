@@ -22,6 +22,9 @@ newrelic:
   # All output goes to stdout/stderr.
   #
   #verbose: 1
+<%- if isset(@endpoint) %>
+  endpoint: <%= @endpoint %>
+<%- end %>
 
 
 #

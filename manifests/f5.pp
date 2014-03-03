@@ -20,6 +20,9 @@
 # $agents::          Array of F5 agents that require a name, host
 #                    port and snmp_community.
 #
+# $endpoint::        Allow overriding the endpoint that data is
+#                    sent to at New Relic.
+#
 # == Requires:
 #
 #   puppetlabs/stdlib
@@ -44,8 +47,9 @@ class newrelic_plugins::f5 (
     $license_key,
     $install_path,
     $user,
-    $version = $newrelic_plugins::params::f5_version,
     $agents,
+    $version  = $newrelic_plugins::params::f5_version,
+    $endpoint = unset,
 ) inherits params {
 
   include stdlib
@@ -58,6 +62,9 @@ class newrelic_plugins::f5 (
   validate_string($user)
   validate_string($version)
   validate_array($agents)
+  if isset($endpoint) {
+    validate_string($endpoint)
+  }
 
   # verify license_key
   newrelic_plugins::resource::verify_license_key { 'F5 Plugin: Verify New Relic License Key':
