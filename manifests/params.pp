@@ -27,7 +27,7 @@ class newrelic_plugins::params {
     $nokogiri_packages = ['libxml2', 'libxml2-devel', 'libxslt', 'libxslt-devel']
   }
 
-  $f5_version = '1.0.9'
+  $f5_version = '1.0.13'
 
   $memcached_ruby_version = '1.0.1'
   $memcached_ruby_download_baseurl = 'https://github.com/newrelic-platform/newrelic_memcached_plugin/archive/release'
