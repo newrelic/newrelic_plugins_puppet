@@ -41,7 +41,7 @@ The AWS Cloudwatch, F5, Example and Wikipedia Example Ruby plugins require:
 - Ruby >= 1.8.7
 - Rubygems >= 1.8
 
-The MySQL and Wikipedia Example Java plugins require: 
+The MySQL and Wikipedia Example Java plugins require:
 
 - Java Runtime Environment (JRE) >= 1.6
 
@@ -70,7 +70,7 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
       aws_secret_key => 'AWS_SECRET_KEY',
       agents         => [ 'ec2', 'ebs', 'elb' ]
     }
-    
+
     class { 'newrelic_plugins::mysql':
       license_key    => 'NEW_RELIC_LICENSE_KEY',
       install_path   => '/path/to/plugin',
@@ -387,8 +387,8 @@ For additional info, see https://github.com/newrelic-platform/newrelic_ruby_wiki
 
 This module supports:
 
- - Debian 
- - Ubuntu 
+ - Debian
+ - Ubuntu
  - CentOS
  - Red Hat
  - Fedora

@@ -8,8 +8,8 @@
 # $license_key::     License Key for your New Relic account
 #
 # $install_path::    Install Path for New Relic Memcached (Java) Plugin.
-#                    Any downloaded files will be placed here. 
-#                    The plugin will be installed within this 
+#                    Any downloaded files will be placed here.
+#                    The plugin will be installed within this
 #                    directory at `newrelic_memcached_java_plugin`.
 #
 # $user::            User to run as
@@ -18,11 +18,11 @@
 #                    Currently defaults to the latest version.
 #
 # $servers::         Array of Memcached server information.
-#                    Note also that the "name" defaults to the same as the "host" 
-#                    unless overriden, and as such "name" is optional. Also if no 
+#                    Note also that the "name" defaults to the same as the "host"
+#                    unless overriden, and as such "name" is optional. Also if no
 #                    "port" is provided, the default 11211 will be used.
 #
-# $java_options::    String of java options that will be passed to the init script java command. 
+# $java_options::    String of java options that will be passed to the init script java command.
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
 #                    for proxy support. Defaults to -Xmx128m (max 128mb heap size).
 #

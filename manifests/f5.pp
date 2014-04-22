@@ -7,9 +7,9 @@
 #
 # $license_key::     License Key for your New Relic account
 #
-# $install_path::    Install Path for New Relic F5 Plugin. 
-#                    Any downloaded files will be placed here. 
-#                    The plugin will be installed within this 
+# $install_path::    Install Path for New Relic F5 Plugin.
+#                    Any downloaded files will be placed here.
+#                    The plugin will be installed within this
 #                    directory at `newrelic_f5_plugin`.
 #
 # $user::            User to run as
