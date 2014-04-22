@@ -33,6 +33,11 @@
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
 #                    for proxy support. Defaults to -Xmx128m (max 128mb heap size).
 #
+# $service_enable::  Boolean. Service enabled at boot. Maps to 'enabled' parameter for service.
+#                    Default: true
+#
+# $service_ensure::  Service 'ensure' parameter. Default: running.
+#
 # == Requires:
 #
 #   puppetlabs/stdlib
@@ -84,6 +89,8 @@ class newrelic_plugins::mysql (
     $java_options = $newrelic_plugins::params::mysql_java_options,
     $newrelic_properties_template = 'newrelic_plugins/mysql/newrelic.properties.erb',
     $mysql_instance_template = 'newrelic_plugins/mysql/mysql.instance.json.erb',
+    $service_enable = true,
+    $service_ensure = running,
 ) inherits params {
 
   include stdlib
@@ -136,7 +143,9 @@ class newrelic_plugins::mysql (
     plugin_name    => 'MySQL',
     plugin_version => $version,
     run_command    => "sudo -u ${user} java ${java_options} -jar",
-    service_name   => 'newrelic-mysql-plugin'
+    service_name   => 'newrelic-mysql-plugin',
+    service_enable => $service_enable,
+    service_ensure => $service_ensure,
   }
 
   # ordering
