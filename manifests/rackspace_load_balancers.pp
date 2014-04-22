@@ -7,9 +7,9 @@
 #
 # $license_key::     License Key for your New Relic account
 #
-# $install_path::    Install Path for New Relic Rackspace Load Balancers Plugin. 
-#                    Any downloaded files will be placed here. The plugin 
-#                    will be installed within this directory at 
+# $install_path::    Install Path for New Relic Rackspace Load Balancers Plugin.
+#                    Any downloaded files will be placed here. The plugin
+#                    will be installed within this directory at
 #                    `newrelic_rackspace_load_balancers_plugin`.
 #
 # $user::            User to run as
@@ -112,7 +112,7 @@ class newrelic_plugins::rackspace_load_balancers (
   Newrelic_plugins::Resource::Verify_ruby['Rackspace Load Balancers Plugin']
   ->
   Newrelic_plugins::Resource::Verify_license_key['Rackspace Load Balancers Plugin: Verify New Relic License Key']
-  -> 
+  ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_rackspace_load_balancers_plugin']
   ->
   File["${plugin_path}/config/newrelic_plugin.yml"]

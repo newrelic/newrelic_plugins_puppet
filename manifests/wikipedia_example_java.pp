@@ -8,8 +8,8 @@
 # $license_key::     License Key for your New Relic account
 #
 # $install_path::    Install Path for New Relic Wikipedia Example Java Plugin.
-#                    Any downloaded files will be placed here. 
-#                    The plugin will be installed within this 
+#                    Any downloaded files will be placed here.
+#                    The plugin will be installed within this
 #                    directory at `newrelic_wikipedia_example_java_plugin`.
 #
 # $user::            User to run as

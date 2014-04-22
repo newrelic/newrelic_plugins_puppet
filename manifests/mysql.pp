@@ -8,8 +8,8 @@
 # $license_key::     License Key for your New Relic account
 #
 # $install_path::    Install Path for New Relic MySQL Plugin.
-#                    Any downloaded files will be placed here. 
-#                    The plugin will be installed within this 
+#                    Any downloaded files will be placed here.
+#                    The plugin will be installed within this
 #                    directory at `newrelic_mysql_plugin`.
 #
 # $user::            User to run as
@@ -17,19 +17,19 @@
 # $version::         New Relic MySQL Plugin Version.
 #                    Currently defaults to the latest version.
 #
-# $servers::         Array of MySQL server information. If using the default username 
+# $servers::         Array of MySQL server information. If using the default username
 #                    and password, the user and passwd attributes can be left off.
 #                    (see mysql_user and mysql_passwd)
-#                    Note also that the "name" defaults to the same as the "host" 
+#                    Note also that the "name" defaults to the same as the "host"
 #                    unless overriden, and as such "name" is optional.
 #
-# $metrics::         Default set of metrics. Can override in $servers. 
+# $metrics::         Default set of metrics. Can override in $servers.
 #
 # $mysql_user::      Default username. Can override in $servers.
 #
 # $mysql_passwd::    Default clear text password. Can override in $servers.
 #
-# $java_options::    String of java options that will be passed to the init script java command. 
+# $java_options::    String of java options that will be passed to the init script java command.
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
 #                    for proxy support. Defaults to -Xmx128m (max 128mb heap size).
 #
