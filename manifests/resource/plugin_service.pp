@@ -1,5 +1,6 @@
 define newrelic_plugins::resource::plugin_service (
   $ensure         = present,
+  $user,
   $daemon_dir,
   $plugin_name,
   $plugin_version,

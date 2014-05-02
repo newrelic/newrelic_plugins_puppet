@@ -92,7 +92,8 @@ class newrelic_plugins::memcached_ruby (
     daemon_dir     => $plugin_path,
     plugin_name    => 'Memcached (Ruby)',
     plugin_version => $version,
-    run_command    => "sudo -u ${user} bundle exec",
+    user           => $user,
+    run_command    => 'bundle exec',
     service_name   => 'newrelic-memcached-ruby-plugin'
   }
 

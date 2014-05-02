@@ -31,7 +31,7 @@ start() {
   else
     echo "Starting $NAME"
     cd $DAEMONDIR
-    <%= @run_command %> $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &
+    su <%= @user %> -c "<%= @run_command %> $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &"
     echo "$!" > $PIDFILE
   fi
 }

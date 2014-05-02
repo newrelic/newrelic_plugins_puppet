@@ -81,7 +81,8 @@ class newrelic_plugins::wikipedia_example_ruby (
     daemon_dir     => $plugin_path,
     plugin_name    => 'Wikipedia Example Ruby Plugin',
     plugin_version => $version,
-    run_command    => "sudo -u ${user} bundle exec",
+    user           => $user,
+    run_command    => 'bundle exec',
     service_name   => 'newrelic-wikipedia-example-ruby-plugin'
   }
 
