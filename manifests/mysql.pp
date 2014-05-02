@@ -142,7 +142,7 @@ class newrelic_plugins::mysql (
     daemon_dir     => $plugin_path,
     plugin_name    => 'MySQL',
     plugin_version => $version,
-    run_command    => "sudo -u ${user} java ${java_options} -jar",
+    run_command    => "su - ${user} java ${java_options} -jar",
     service_name   => 'newrelic-mysql-plugin',
     service_enable => $service_enable,
     service_ensure => $service_ensure,
