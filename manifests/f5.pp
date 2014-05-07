@@ -98,7 +98,8 @@ class newrelic_plugins::f5 (
     daemon_dir     => $plugin_path,
     plugin_name    => 'F5',
     plugin_version => $version,
-    run_command    => "sudo -u ${user} f5_monitor run",
+    user           => $user,
+    run_command    => 'f5_monitor run',
     service_name   => 'newrelic-f5-plugin'
   }
 

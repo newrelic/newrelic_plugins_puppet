@@ -77,7 +77,8 @@ class newrelic_plugins::wikipedia_example_java (
     daemon_dir     => $plugin_path,
     plugin_name    => 'Wikipedia Example Java',
     plugin_version => $version,
-    run_command    => "sudo -u ${user} java ${java_options} -jar",
+    user           => $user,
+    run_command    => "java ${java_options} -jar",
     service_name   => 'newrelic-wikipedia-example-java-plugin'
   }
 
