@@ -119,7 +119,8 @@ class newrelic_plugins::memcached_java (
     daemon_dir     => $plugin_path,
     plugin_name    => 'Memcached (Java)',
     plugin_version => $version,
-    run_command    => "sudo -u ${user} java ${java_options} -jar",
+    user           => $user,
+    run_command    => "java ${java_options} -jar",
     service_name   => 'newrelic-memcached-java-plugin'
   }
 

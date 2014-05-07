@@ -81,7 +81,8 @@ class newrelic_plugins::example (
     daemon_dir     => $plugin_path,
     plugin_name    => 'Example',
     plugin_version => $version,
-    run_command    => "sudo -u ${user} bundle exec",
+    user           => $user,
+    run_command    => 'bundle exec',
     service_name   => 'newrelic-example-plugin'
   }
 
