@@ -4,8 +4,12 @@
     "name"    : "<%= !server['name'].nil? ? server['name'] : server['host'] %>",
     "host"    : "<%= server['host'] %>",
     "metrics" : "<%= !server['metrics'].nil? ? server['metrics'] : @metrics %>",
+    <%- unless server['mysql_user'].nil? && @mysql_user.empty? -%>
     "user"    : "<%= !server['mysql_user'].nil? ? server['mysql_user'] : @mysql_user %>",
+    <%- end -%>
+    <%- unless server['mysql_passwd'].nil? && @mysql_passwd.empty? -%>
     "passwd"  : "<%= !server['mysql_passwd'].nil? ? server['mysql_passwd'] : @mysql_passwd %>"
+    <%- end -%>
   },
   <%- end %>
 ]
