@@ -98,24 +98,24 @@ class newrelic_plugins::memcached_java (
   }
 
   # newrelic.properties template
-  file { "${plugin_path}/config/newrelic.properties":
+  file { "${plugin_path}/config/newrelic.json":
     ensure  => file,
-    content => template('newrelic_plugins/memcached_java/newrelic.properties.erb'),
+    content => template('newrelic_plugins/memcached_java/newrelic.json.erb'),
     owner   => $user,
     notify  => Service['newrelic-memcached-java-plugin']
   }
 
   # memcached.hosts.json template
-  file { "${plugin_path}/config/memcached.hosts.json":
+  file { "${plugin_path}/config/plugin.json":
     ensure  => file,
-    content => template('newrelic_plugins/memcached_java/memcached.hosts.json.erb'),
+    content => template('newrelic_plugins/memcached_java/plugin.json.erb'),
     owner   => $user,
     notify  => Service['newrelic-memcached-java-plugin']
   }
 
   # install init.d script and start service
   newrelic_plugins::resource::plugin_service { 'newrelic-memcached-java-plugin':
-    daemon         => 'newrelic_memcached_plugin*.jar',
+    daemon         => 'plugin.jar',
     daemon_dir     => $plugin_path,
     plugin_name    => 'Memcached (Java)',
     plugin_version => $version,
@@ -131,9 +131,9 @@ class newrelic_plugins::memcached_java (
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_memcached_java_plugin']
   ->
-  File["${plugin_path}/config/newrelic.properties"]
+  File["${plugin_path}/config/newrelic.json"]
   ->
-  File["${plugin_path}/config/memcached.hosts.json"]
+  File["${plugin_path}/config/plugin.json"]
   ->
   Newrelic_plugins::Resource::Plugin_service['newrelic-memcached-java-plugin']
 }
