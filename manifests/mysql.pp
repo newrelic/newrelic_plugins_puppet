@@ -87,8 +87,8 @@ class newrelic_plugins::mysql (
     $mysql_user = '',
     $mysql_passwd = '',
     $java_options = $newrelic_plugins::params::mysql_java_options,
-    $newrelic_properties_template = 'newrelic_plugins/mysql/newrelic.properties.erb',
-    $mysql_instance_template = 'newrelic_plugins/mysql/mysql.instance.json.erb',
+    $newrelic_template = 'newrelic_plugins/mysql/newrelic.json.erb',
+    $plugin_template = 'newrelic_plugins/mysql/plugin.json.erb',
     $service_enable = true,
     $service_ensure = running,
 ) inherits params {
@@ -120,25 +120,25 @@ class newrelic_plugins::mysql (
     user         => $user
   }
 
-  # newrelic.properties template
-  file { "${plugin_path}/config/newrelic.properties":
+  # newrelic.json template
+  file { "${plugin_path}/config/newrelic.json":
     ensure  => file,
-    content => template($newrelic_properties_template),
+    content => template($newrelic_template),
     owner   => $user,
     notify  => Service['newrelic-mysql-plugin']
   }
 
-  # mysql.instance.json template
-  file { "${plugin_path}/config/mysql.instance.json":
+  # plugin.json template
+  file { "${plugin_path}/config/plugin.json":
     ensure  => file,
-    content => template($mysql_instance_template),
+    content => template($plugin_template),
     owner   => $user,
     notify  => Service['newrelic-mysql-plugin']
   }
 
   # install init.d script and start service
   newrelic_plugins::resource::plugin_service { 'newrelic-mysql-plugin':
-    daemon         => 'newrelic_mysql_plugin*.jar',
+    daemon         => 'plugin.jar',
     daemon_dir     => $plugin_path,
     plugin_name    => 'MySQL',
     plugin_version => $version,
@@ -156,9 +156,9 @@ class newrelic_plugins::mysql (
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_mysql_plugin']
   ->
-  File["${plugin_path}/config/newrelic.properties"]
+  File["${plugin_path}/config/newrelic.json"]
   ->
-  File["${plugin_path}/config/mysql.instance.json"]
+  File["${plugin_path}/config/plugin.json"]
   ->
   Newrelic_plugins::Resource::Plugin_service['newrelic-mysql-plugin']
 }
