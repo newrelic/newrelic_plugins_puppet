@@ -63,17 +63,25 @@ class newrelic_plugins::wikipedia_example_java (
     user         => $user
   }
 
-  # newrelic.properties template
-  file { "${plugin_path}/config/newrelic.properties":
+  # newrelic.json template
+  file { "${plugin_path}/config/newrelic.json":
     ensure  => file,
-    content => template('newrelic_plugins/wikipedia_example_java/newrelic.properties.erb'),
+    content => template('newrelic_plugins/wikipedia_example_java/newrelic.json.erb'),
+    owner   => $user,
+    notify  => Service['newrelic-wikipedia-example-java-plugin']
+  }
+
+  # plugin.json template
+  file { "${plugin_path}/config/plugin.json":
+    ensure  => file,
+    content => template('newrelic_plugins/wikipedia_example_java/plugin.json'),
     owner   => $user,
     notify  => Service['newrelic-wikipedia-example-java-plugin']
   }
 
   # install init.d script and start service
   newrelic_plugins::resource::plugin_service { 'newrelic-wikipedia-example-java-plugin':
-    daemon         => 'newrelic_wikipedia_plugin*.jar',
+    daemon         => 'plugin.jar',
     daemon_dir     => $plugin_path,
     plugin_name    => 'Wikipedia Example Java',
     plugin_version => $version,
@@ -89,7 +97,9 @@ class newrelic_plugins::wikipedia_example_java (
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_wikipedia_example_java_plugin']
   ->
-  File["${plugin_path}/config/newrelic.properties"]
+  File["${plugin_path}/config/newrelic.json"]
+  ->
+  File["${plugin_path}/config/plugin.json"]
   ->
   Newrelic_plugins::Resource::Plugin_service['newrelic-wikipedia-example-java-plugin']
 }
