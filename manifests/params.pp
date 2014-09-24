@@ -46,7 +46,7 @@ class newrelic_plugins::params {
   $rackspace_load_balancers_version = '1.2.0'
   $rackspace_load_balancers_download_baseurl = 'https://github.com/newrelic-platform/newrelic_rackspace_load_balancers_plugin/archive'
 
-  $wikipedia_example_java_version = '1.0.8'
+  $wikipedia_example_java_version = '2.0.0'
   $wikipedia_example_java_download_baseurl = 'https://github.com/newrelic-platform/newrelic_java_wikipedia_plugin/raw/master/dist/newrelic_wikipedia_plugin'
 
   $wikipedia_example_ruby_version = '1.0.3'
