@@ -93,8 +93,6 @@ class newrelic_plugins::mysql (
     $service_ensure = running,
 ) inherits newrelic_plugins::params {
 
-  include stdlib
-
   # verify java is installed
   newrelic_plugins::resource::verify_java { 'MySQL Plugin': }
 

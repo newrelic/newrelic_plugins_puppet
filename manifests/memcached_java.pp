@@ -70,8 +70,6 @@ class newrelic_plugins::memcached_java (
     $java_options = $newrelic_plugins::params::memcached_java_options,
 ) inherits newrelic_plugins::params {
 
-  include stdlib
-
   # verify java is installed
   newrelic_plugins::resource::verify_java { 'Memcached (Java) Plugin': }
 

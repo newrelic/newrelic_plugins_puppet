@@ -48,8 +48,6 @@ class newrelic_plugins::f5 (
     $agents,
 ) inherits newrelic_plugins::params {
 
-  include stdlib
-
   # verify ruby is installed
   newrelic_plugins::resource::verify_ruby { 'F5 Plugin': }
 

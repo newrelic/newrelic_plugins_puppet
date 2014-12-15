@@ -50,8 +50,6 @@ class newrelic_plugins::rackspace_load_balancers (
     $version = $newrelic_plugins::params::rackspace_load_balancers_version,
 ) inherits newrelic_plugins::params {
 
-  include stdlib
-
   # verify ruby is installed
   newrelic_plugins::resource::verify_ruby { 'Rackspace Load Balancers Plugin': }
 

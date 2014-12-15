@@ -37,8 +37,6 @@ class newrelic_plugins::wikipedia_example_java (
     $version = $newrelic_plugins::params::wikipedia_example_java_version
 ) inherits newrelic_plugins::params {
 
-  include stdlib
-
   # verify java is installed
   newrelic_plugins::resource::verify_java { 'Wikipedia Example Java Plugin': }
 
