@@ -61,7 +61,6 @@
 #       {
 #         name          => 'Production Master',
 #         host          => 'localhost',
-#         metrics       => 'status,newrelic',
 #         varnish_user    => 'USER_NAME_HERE',
 #         varnish_passwd  => 'USER_CLEAR_TEXT_PASSWORD_HERE'
 #       }

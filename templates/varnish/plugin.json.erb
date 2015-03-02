@@ -4,16 +4,16 @@
     {
 	  "type" : "varnish",
 	  "name" : "<%= !server['name'].nil? ? server['name'] : server['host'] %>",
-	  <% if !server['varnish_user'].nil -%>
+	  <% if scope.lookupvar(server['varnish_user']) != '' -%>
 	  "user"    : "<%= server['varnish_user'] %>",
 	  <% end -%>
-	  <% if !server['varnish_passwd'].nil -%>
+	  <% if scope.lookupvar(server['varnish_passwd']) != '' -%>
 	  "passwd"  : "<%= server['varnish_passwd'] %>",
 	  <% end -%>
-	  <% if !server['varnish_host'].nil -%>
+	  <% if scope.lookupvar(server['varnish_host']) != '' -%>
 	  "host"    : "<%= server['host'] %>",
 	  <% end -%>
-	  <% if !server['varnish_instance'].nil -%>
+	  <% if scope.lookupvar(server['varnish_instance']) != '' -%>
 	  "instance" : "<%= server['host'] %>"
 	  <% end -%>
 	}
