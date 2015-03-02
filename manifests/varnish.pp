@@ -23,10 +23,6 @@
 #                    Note also that the "name" defaults to the same as the "host"
 #                    unless overriden, and as such "name" is optional.
 #
-# $varnish_user::      Default username. Can override in $servers.
-#
-# $varnish_passwd::    Default clear text password. Can override in $servers.
-#
 # $java_options::    String of java options that will be passed to the init script java command.
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
 #                    for proxy support. Defaults to -Xmx128m (max 128mb heap size).
@@ -46,8 +42,6 @@
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
 #     user           => 'newrelic',
-#     varnish_user     => 'USER_NAME_HERE',
-#     varnish_passwd   => 'USER_CLEAR_TEXT_PASSWORD_HERE',
 #     servers        => [
 #       {
 #         name  => 'Production Master',
@@ -80,7 +74,6 @@ class newrelic_plugins::varnish (
     $user,
     $version = $newrelic_plugins::params::varnish_version,
     $servers,
-    $metrics = '',
     $java_options = $newrelic_plugins::params::varnish_java_options,
     $newrelic_template = 'newrelic_plugins/varnish/newrelic.json.erb',
     $plugin_template = 'newrelic_plugins/varnish/plugin.json.erb',
