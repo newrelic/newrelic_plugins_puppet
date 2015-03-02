@@ -1,22 +1,20 @@
 {
   "agents": [
-  <%- @servers.each do |server| %>
     {
 	  "type" : "varnish",
-	  "name" : "<%= !server['name'].nil? ? server['name'] : server['host'] %>",
-	  <% if scope.lookupvar(server['varnish_user']) != '' -%>
-	  "user"    : "<%= server['varnish_user'] %>",
+	  "name" : "<%= server_name %>",
+	  <% if scope.lookupvar(varnish_user') != '' -%>
+	  "user"    : "<%= scope.lookupvar(varnish_user') %>",
 	  <% end -%>
-	  <% if scope.lookupvar(server['varnish_passwd']) != '' -%>
-	  "passwd"  : "<%= server['varnish_passwd'] %>",
+	  <% if scope.lookupvar('varnish_passwd') != '' -%>
+	  "passwd"  : "<%= scope.lookupvar('varnish_passwd') %>",
 	  <% end -%>
-	  <% if scope.lookupvar(server['varnish_host']) != '' -%>
-	  "host"    : "<%= server['host'] %>",
+	  <% if scope.lookupvar('varnish_host') != '' -%>
+	  "host"    : "<%= scope.lookupvar('varnish_host') %>",
 	  <% end -%>
-	  <% if scope.lookupvar(server['varnish_instance']) != '' -%>
-	  "instance" : "<%= server['host'] %>"
+	  <% if scope.lookupvar('varnish_instance') != '' -%>
+	  "instance" : "<%= scope.lookupvar('varnish_instance') %>"
 	  <% end -%>
 	}
-  <%- end %>
   ]
 }

@@ -12,16 +12,12 @@
 #                    The plugin will be installed within this
 #                    directory at `newrelic_varnish_plugin`.
 #
+# $server_name::     Name of the server
+#
 # $user::            User to run as
 #
 # $version::         New Relic Varnish Plugin Version.
 #                    Currently defaults to the latest version.
-#
-# $servers::         Array of Varnish server information. If using the default username
-#                    and password, the user and passwd attributes can be left off.
-#                    (see varnish_user and varnish_passwd)
-#                    Note also that the "name" defaults to the same as the "host"
-#                    unless overriden, and as such "name" is optional.
 #
 # $java_options::    String of java options that will be passed to the init script java command.
 #                    E.g. -Dhttps.proxyHost=proxy.example.com -Dhttps.proxyPort=12345
@@ -41,30 +37,8 @@
 #   class { 'newrelic_plugins::varnish':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
-#     user           => 'newrelic',
-#     servers        => [
-#       {
-#         name  => 'Production Master',
-#         host  => 'localhost'
-#       },
-#       {
-#         name  => 'Production Slave',
-#         host  => 'localhost'
-#       }
-#     ]
-#   }
-#
-#   class { 'newrelic_plugins::varnish':
-#     license_key    => 'NEW_RELIC_LICENSE_KEY',
-#     install_path   => '/path/to/plugin',
-#     servers        => [
-#       {
-#         name          => 'Production Master',
-#         host          => 'localhost',
-#         varnish_user    => 'USER_NAME_HERE',
-#         varnish_passwd  => 'USER_CLEAR_TEXT_PASSWORD_HERE'
-#       }
-#     ]
+#     user           => 'varnish',
+#     server_name    => 'your host'
 #   }
 #
 class newrelic_plugins::varnish (
@@ -72,7 +46,11 @@ class newrelic_plugins::varnish (
     $install_path,
     $user,
     $version = $newrelic_plugins::params::varnish_version,
-    $servers,
+    $server_name,
+    $varnish_user = '',
+    $varnish_passwd = '',
+    $varnish_host = '',
+    $varnish_instance = '',
     $java_options = $newrelic_plugins::params::varnish_java_options,
     $newrelic_template = 'newrelic_plugins/varnish/newrelic.json.erb',
     $plugin_template = 'newrelic_plugins/varnish/plugin.json.erb',
@@ -89,7 +67,7 @@ class newrelic_plugins::varnish (
   validate_absolute_path($install_path)
   validate_string($user)
   validate_string($version)
-  validate_array($servers)
+  validate_string($server_name)
 
   # verify license_key
   newrelic_plugins::resource::verify_license_key { 'Varnish Plugin: Verify New Relic License Key':
