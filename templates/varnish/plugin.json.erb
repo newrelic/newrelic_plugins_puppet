@@ -4,7 +4,7 @@
 	  "type" : "varnish",
 	  "name" : "<%= server_name %>",
 	  <% if scope.lookupvar('varnish_user') != '' -%>
-	  "user"    : "<%= scope.lookupvar(varnish_user') %>",
+	  "user"    : "<%= scope.lookupvar('varnish_user') %>",
 	  <% end -%>
 	  <% if scope.lookupvar('varnish_passwd') != '' -%>
 	  "passwd"  : "<%= scope.lookupvar('varnish_passwd') %>",
