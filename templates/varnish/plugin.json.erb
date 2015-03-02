@@ -2,18 +2,18 @@
   "agents": [
     {
 	  "type" : "varnish",
-	  "name" : "<%= server_name %>",
+	  "name" : "<%= server_name %>"
 	  <% if scope.lookupvar('varnish_user') != '' -%>
-	  "user"    : "<%= scope.lookupvar('varnish_user') %>",
+	  ,"user"    : "<%= scope.lookupvar('varnish_user') %>",
 	  <% end -%>
 	  <% if scope.lookupvar('varnish_passwd') != '' -%>
-	  "passwd"  : "<%= scope.lookupvar('varnish_passwd') %>",
+	  ,"passwd"  : "<%= scope.lookupvar('varnish_passwd') %>",
 	  <% end -%>
 	  <% if scope.lookupvar('varnish_host') != '' -%>
-	  "host"    : "<%= scope.lookupvar('varnish_host') %>",
+	  ,"host"    : "<%= scope.lookupvar('varnish_host') %>",
 	  <% end -%>
 	  <% if scope.lookupvar('varnish_instance') != '' -%>
-	  "instance" : "<%= scope.lookupvar('varnish_instance') %>"
+	  ,"instance" : "<%= scope.lookupvar('varnish_instance') %>"
 	  <% end -%>
 	}
   ]
