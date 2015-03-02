@@ -53,7 +53,7 @@ class newrelic_plugins::params {
   $wikipedia_example_ruby_download_baseurl = 'https://github.com/newrelic-platform/newrelic_wikipedia_plugin/archive'
   
   $varnish_version = '2.0.0'
-  $varnish_download_baseurl = 'https://github.com/threelegs/newrelic-plugins/tree/master/dist'
+  $varnish_download_baseurl = 'https://github.com/threelegs/newrelic-plugins/blob/master/dist'
   $varnish_java_options = '-Xmx128m'
 }
 
