@@ -5,7 +5,7 @@
 	  "type" : "varnish",
 	  "name" : "<%= !server['name'].nil? ? server['name'] : server['host'] %>",
 	  "user"    : "<%= !server['varnish_user'].nil? ? server['varnish_user'] : @varnish_user %>",
-	  "passwd"  : "<%= !server['varnish_passwd'].nil? ? server['varnish_passwd'] : @varnish_passwd %>"
+	  "passwd"  : "<%= !server['varnish_passwd'].nil? ? server['varnish_passwd'] : @varnish_passwd %>",
 	  "host"    : "<%= server['host'] %>",
 	  "instance" : "<%= server['host'] %>",
 	}
