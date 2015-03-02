@@ -120,7 +120,7 @@ class newrelic_plugins::varnish (
     ensure  => file,
     content => template($newrelic_template),
     owner   => $user,
-    notify  => Service['newrelic_3legs_plugin']
+    notify  => Service['newrelic-3legs-plugin']
   }
 
   # plugin.json template
@@ -128,18 +128,18 @@ class newrelic_plugins::varnish (
     ensure  => file,
     content => template($plugin_template),
     owner   => $user,
-    notify  => Service['newrelic_3legs_plugin']
+    notify  => Service['newrelic-3legs-plugin']
   }
 
   # install init.d script and start service
-  newrelic_plugins::resource::plugin_service { 'newrelic_3legs_plugin':
+  newrelic_plugins::resource::plugin_service { 'newrelic-3legs-plugin':
     daemon         => 'plugin.jar',
     daemon_dir     => $plugin_path,
     plugin_name    => 'Varnish',
     plugin_version => $version,
     user           => $user,
     run_command    => "java ${java_options} -jar",
-    service_name   => 'newrelic-varnish-plugin',
+    service_name   => 'newrelic-3legs-plugin',
     service_enable => $service_enable,
     service_ensure => $service_ensure,
   }
@@ -149,11 +149,11 @@ class newrelic_plugins::varnish (
   ->
   Newrelic_plugins::Resource::Verify_license_key['Varnish Plugin: Verify New Relic License Key']
   ->
-  Newrelic_plugins::Resource::Install_plugin['newrelic_varnish_plugin']
+  Newrelic_plugins::Resource::Install_plugin['newrelic_3legs_plugin']
   ->
   File["${plugin_path}/config/newrelic.json"]
   ->
   File["${plugin_path}/config/plugin.json"]
   ->
-  Newrelic_plugins::Resource::Plugin_service['newrelic-varnish-plugin']
+  Newrelic_plugins::Resource::Plugin_service['newrelic-3legs-plugin']
 }
