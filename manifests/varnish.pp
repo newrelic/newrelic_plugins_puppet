@@ -89,7 +89,6 @@ class newrelic_plugins::varnish (
   validate_absolute_path($install_path)
   validate_string($user)
   validate_string($version)
-  validate_array($servers)
 
   # verify license_key
   newrelic_plugins::resource::verify_license_key { 'Varnish Plugin: Verify New Relic License Key':
