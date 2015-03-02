@@ -1,6 +1,9 @@
 # = Class: newrelic_plugins::varnish
 #
-# This class installs/configures/manages New Relic's Varnish Plugin.
+# This class installs/configures/manages threelegs's Varnish Plugin for New Relic.
+#
+# Project URL: https://github.com/threelegs/newrelic-plugins
+#
 # Only supported on Debian-derived and Red Hat-derived OSes.
 #
 # == Parameters:
