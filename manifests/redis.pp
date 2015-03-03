@@ -8,39 +8,35 @@
 #
 # == Parameters:
 #
-# $license_key::     License Key for your New Relic account
+# $license_key::          License Key for your New Relic account
 #
-# $install_path::    Install Path for redis plugin.
-#                    Any downloaded files will be placed here.
-#                    The plugin will be installed within this
-#                    directory at `newrelic_redis_plugin`.
+# $install_path::         Install Path for redis plugin.
+#                         Any downloaded files will be placed here.
+#                         The plugin will be installed within this
+#                         directory at `newrelic_redis_plugin`.
 #
-# $user::            User to run as
+# $user::                 User to run as
 #
-# $version::         New Relic Redis Plugin Version.
-#                    Currently defaults to the latest version.
+# $version::              New Relic Redis Plugin Version.
+#                         Currently defaults to the latest version.
 #
-# $agents::          Array of Redis agents that require a name, host
-#                    port and snmp_community.
+# $redis_instance_name::  Name of the redis instance (optional)
+#
+# $redis_url::            Path to the redis instance (tcp/port)
+#
+# $redis_database::       Database to use (e.g. db0)
 #
 # == Requires:
 #
 #   puppetlabs/stdlib
 #
 # == Sample Usage:
-#
 #   class { 'newrelic_plugins::redis':
 #     license_key    => 'NEW_RELIC_LICENSE_KEY',
 #     install_path   => '/path/to/plugin',
-#     user           => 'newrelic',
-#     agents         => [
-#       {
-#         name           => 'My F5',
-#         host           => 'my-f5',
-#         port           => 161,
-#         snmp_community => 'public'
-#       }
-#     ]
+#     user           => 'redis',
+#     redis_url      => 'redis://127.0.0.1:6379',
+#     redis_database => 'db0' 
 #   }
 #
 class newrelic_plugins::redis (
