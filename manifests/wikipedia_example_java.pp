@@ -35,7 +35,7 @@ class newrelic_plugins::wikipedia_example_java (
     $install_path,
     $user,
     $version = $newrelic_plugins::params::wikipedia_example_java_version
-) inherits params {
+) inherits ::newrelic_plugins::params {
 
   include stdlib
 

@@ -68,7 +68,7 @@ class newrelic_plugins::memcached_java (
     $version = $newrelic_plugins::params::memcached_java_version,
     $servers,
     $java_options = $newrelic_plugins::params::memcached_java_options,
-) inherits params {
+) inherits ::newrelic_plugins::params {
 
   include stdlib
 

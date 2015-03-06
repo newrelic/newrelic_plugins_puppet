@@ -48,7 +48,7 @@ class newrelic_plugins::rackspace_load_balancers (
     $api_key,
     $region,
     $version = $newrelic_plugins::params::rackspace_load_balancers_version,
-) inherits params {
+) inherits ::newrelic_plugins::params {
 
   include stdlib
 

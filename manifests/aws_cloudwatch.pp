@@ -53,7 +53,7 @@ class newrelic_plugins::aws_cloudwatch (
     $agents,
     $version = $newrelic_plugins::params::aws_cloudwatch_version,
     $regions = [],
-) inherits params {
+) inherits ::newrelic_plugins::params {
 
   include stdlib
 
