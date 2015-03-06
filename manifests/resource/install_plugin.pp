@@ -19,7 +19,7 @@ define newrelic_plugins::resource::install_plugin (
 
   # download plugin tar file
   exec { "curl ${tar_file}":
-    command => "curl -L -o ${tar_file} ${download_url}",
+    command => "curl -s -L -o ${tar_file} ${download_url}",
     cwd     => $install_path,
     path    => $::path,
     user    => $user,
