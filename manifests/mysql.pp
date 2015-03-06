@@ -115,7 +115,7 @@ class newrelic_plugins::mysql (
   newrelic_plugins::resource::install_plugin { 'newrelic_mysql_plugin':
     install_path => $install_path,
     plugin_path  => $plugin_path,
-    download_url => "${$newrelic_plugins::params::mysql_download_baseurl}-${version}.tar.gz",
+    download_url => "${::newrelic_plugins::mysql_download_baseurl}-${version}.tar.gz",
     version      => $version,
     user         => $user
   }
