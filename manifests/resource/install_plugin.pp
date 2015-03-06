@@ -19,12 +19,12 @@ define newrelic_plugins::resource::install_plugin (
 
   # download plugin tar file
   exec { "curl ${tar_file}":
-    command => "curl -s -L -o ${tar_file} ${download_url}",
+    command => "curl -s -L -o '${tar_file}' '${download_url}'",
     cwd     => $install_path,
     path    => $::path,
     user    => $user,
-    onlyif  => "test -d ${install_path}",
-    unless  => "test -f ${tar_file}",
+    onlyif  => "test -d '${install_path}'",
+    unless  => "test -f '${tar_file}'",
     notify  => Exec["${name}: create ${plugin_path}"]
   }
 
