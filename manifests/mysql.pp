@@ -96,7 +96,8 @@ class newrelic_plugins::mysql (
   include stdlib
 
   # verify java is installed
-  newrelic_plugins::resource::verify_java { 'MySQL Plugin': }
+  # TODO: Find a better way to do this.
+  # newrelic_plugins::resource::verify_java { 'MySQL Plugin': }
 
   # verify attributes
   validate_absolute_path($install_path)
