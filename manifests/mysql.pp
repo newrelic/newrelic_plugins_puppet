@@ -151,8 +151,8 @@ class newrelic_plugins::mysql (
   }
 
   # ordering
-  Newrelic_plugins::Resource::Verify_java['MySQL Plugin']
-  ->
+  # Newrelic_plugins::Resource::Verify_java['MySQL Plugin']
+  # ->
   Newrelic_plugins::Resource::Verify_license_key['MySQL Plugin: Verify New Relic License Key']
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_mysql_plugin']
