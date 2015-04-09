@@ -30,7 +30,7 @@ class newrelic_plugins::haproxy (
     ensure  => file,
     path    => '/etc/init.d/newrelic_haproxy_plugin',
     mode    => '0755',
-    user    => 'root',
+    owner   => 'root',
     group   => 'root',
     content => template('newrelic_plugins/haproxy/newrelic_haproxy_plugin.erb'),
   }
