@@ -10,6 +10,7 @@
 ### END INIT INFO
 
 DESC="New Relic <%= @plugin_name %> Plugin Daemon"
+NAME="newrelic_haproxy_agent"
 DAEMONDIR=/var/log/
 PIDFILE=/var/run/$NAME.pid
 
@@ -28,7 +29,7 @@ start() {
     echo "Starting $NAME"
     cd $DAEMONDIR
     touch $PIDFILE 
-    newrelic_haproxy_agent run >> $DAEMONDIR/newrelic_haproxy_agent.log 2>&1 & echo \$! > $PIDFILE
+    newrelic_haproxy_agent run >> $DAEMONDIR/newrelic_haproxy_agent.log 2>&1 & echo $! > $PIDFILE
   fi
 }
 
