@@ -41,14 +41,8 @@ class newrelic_plugins::haproxy (
     content => template('newrelic_plugins/haproxy/newrelic_haproxy_plugin.erb'),
   }
 
-  exec {'newrelic_haproxy_agent_config':
-    command  => '/usr/local/bin/newrelic_haproxy_agent install',
-    require  => Package['bundler','newrelic_plugin','newrelic_haproxy_agent'],
-    creates  => '/etc/newrelic/newrelic_haproxy_agent.yml',
-  }
-
   # Configure the yaml file
-  file { '/etc/newrelic/newrelic/newrelic_haproxy_agent.yml':
+  file { '/etc/newrelic/newrelic_haproxy_agent.yml':
     ensure    => file,
     mode      => '0644',
     content   => template('newrelic_plugins/haproxy/newrelic_haproxy_agent.yml.erb'),
