@@ -29,7 +29,7 @@ class newrelic_plugins::haproxy (
   file { 'newrelic_haproxy_agent_init':
     ensure  => file,
     path    => '/etc/init.d/newrelic_haproxy_plugin',
-    content => template('haproxy/newrelic_haproxy_plugin.erb'),
+    content => template('newrelic_plugins/haproxy/newrelic_haproxy_plugin.erb'),
   }
 
   exec {'newrelic_haproxy_agent_config':
