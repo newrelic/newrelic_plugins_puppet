@@ -51,6 +51,8 @@ class newrelic_plugins::haproxy (
   }
 
   else {  
+    # If we're using the configured install, ensure haproxy_agents is a hash
+    validate_hash($haproxy_agents, 'You must pass a hash to $haproxy_agents')
     # Configure the yaml file - requires that haproxy_agents hash is not empty
     file { '/etc/newrelic/newrelic_haproxy_agent.yml':
       ensure    => file,
