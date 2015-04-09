@@ -27,9 +27,9 @@ class newrelic_plugins::haproxy (
   }
 
   exec {'newrelic_haproxy_agent_config':
-    command => '/usr/local/bin/newrelic_haproxy_agent install',
-    require => Package['bundler','newrelic_plugin','newrelic_haproxy_agent'],
-    create  => '/etc/newrelic/newrelic_haproxy_agent.yml',
+    command  => '/usr/local/bin/newrelic_haproxy_agent install',
+    require  => Package['bundler','newrelic_plugin','newrelic_haproxy_agent'],
+    creates  => '/etc/newrelic/newrelic_haproxy_agent.yml',
   }
 
   service { 'newrelic_haproxy_agent':
