@@ -15,10 +15,10 @@ newrelic:
 # Agent Configuration:
 #
 agents:
-<% @haproxy_agents.each do |a| %>
+<% @haproxy_agents.each do |a,b| -%>
   <%= a %>:
     # URI of the haproxy CSV stats url. See the 'CSV Export' link on your haproxy stats page (example stats page: http://demo.1wt.eu/).
-    uri: <%= a['uri'] %> 
+    uri: <%= b['uri'] %> 
     # The name of the proxy to monitor. Proxies are typically listed in the haproxy.cfg file.
     proxy: <%= a['proxy'] %> #http-in
     # If multiple proxies have the same name, specify which proxy you want to monitor (ex: 'frontend' or 'backend')."
