@@ -51,7 +51,7 @@ class newrelic_plugins::haproxy (
   service { 'newrelic_haproxy_plugin':
     ensure    => running,
     enable    => true,
-    subscribe => File['newrelic_haproxy_agent_init','/etc/newrelic/newrelic/newrelic_haproxy_agent.yml'], 
+    subscribe => File['newrelic_haproxy_agent_init','/etc/newrelic/newrelic_haproxy_agent.yml'], 
   }
 
 }
