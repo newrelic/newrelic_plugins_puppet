@@ -20,13 +20,13 @@ agents:
     # URI of the haproxy CSV stats url. See the 'CSV Export' link on your haproxy stats page (example stats page: http://demo.1wt.eu/).
     uri: <%= b['uri'] %> 
     # The name of the proxy to monitor. Proxies are typically listed in the haproxy.cfg file.
-    proxy: <%= a['proxy'] %> #http-in
+    proxy: <%= b['proxy'] %> #http-in
     # If multiple proxies have the same name, specify which proxy you want to monitor (ex: 'frontend' or 'backend')."
-    proxy_type: <%= a['proxy_type'] %> #FRONTEND
+    proxy_type: <%= b['proxy_type'] %> #FRONTEND
     # If protected under basic authentication provide the user name
-<% if @user %>
-    user: <%= a['user'] %>
+<% if b['user'] %>
+    user: <%= b['user'] %>
     # If protected under basic authentication provide the password.
-    password: <%= a['password'] %> 
+    password: <%= b['password'] %> 
 <% end %>
 <% end %>
