@@ -15,6 +15,7 @@ newrelic:
 # Agent Configuration:
 #
 agents:
+<% if @haproxy_agents -%>
 <% @haproxy_agents.each do |a,b| -%>
   <%= a %>:
     # URI of the haproxy CSV stats url. See the 'CSV Export' link on your haproxy stats page (example stats page: http://demo.1wt.eu/).
@@ -29,4 +30,7 @@ agents:
     # If protected under basic authentication provide the password.
     password: <%= b['password'] %> 
 <% end -%>
+<% end -%>
+<% else %>
+<% abort "Must pass haproxy_agents hash" %>
 <% end -%>
