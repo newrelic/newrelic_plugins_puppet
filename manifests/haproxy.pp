@@ -29,6 +29,9 @@ class newrelic_plugins::haproxy (
   file { 'newrelic_haproxy_agent_init':
     ensure  => file,
     path    => '/etc/init.d/newrelic_haproxy_plugin',
+    mode    => '0755',
+    user    => 'root',
+    group   => 'root',
     content => template('newrelic_plugins/haproxy/newrelic_haproxy_plugin.erb'),
   }
 
