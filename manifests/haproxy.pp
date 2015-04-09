@@ -1,6 +1,25 @@
 # Install the newrelic haproxy agent
 # Example:
-# 
+# class profiles::newrelic::haproxy_plugin {
+#
+#  $license_key    = hiera('newrelic_license_key')
+#  $haproxy_agents  = {
+#    'qa_haproxy_internal' => {
+#      'uri'         => 'http://10.0.3.131:22002/;csv',
+#      'proxy'       => 'http-in',
+#      'proxy_type'  => 'FRONTEND',
+#    }
+#  }
+#
+#  class { ::newrelic_plugins::haproxy:
+#    license_key     => $license_key,
+#    haproxy_agents  => $haproxy_agents,
+#  }
+#}
+#
+# Meta
+# Author: github/malnick
+###################################################### 
 
 class newrelic_plugins::haproxy (
   
