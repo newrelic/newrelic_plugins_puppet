@@ -6,7 +6,7 @@ class newrelic_plugins::haproxy (
   
   $license_key,
   $base_install   = false,
-  $haproxy_agents = {},
+  $haproxy_agents = undef,
 
 ){
 
