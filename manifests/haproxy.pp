@@ -1,6 +1,12 @@
+# Install the newrelic haproxy agent
+# Example:
+# 
+
 class newrelic_plugins::haproxy (
   
   $license_key,
+  $base_install   = false,
+  $haproxy_agent  = {},
 
 ){
 
@@ -41,6 +47,7 @@ class newrelic_plugins::haproxy (
     creates  => '/etc/newrelic/newrelic_haproxy_agent.yml',
   }
 
+  # Configure the yaml file
   service { 'newrelic_haproxy_plugin':
     ensure    => running,
     enable    => true,
