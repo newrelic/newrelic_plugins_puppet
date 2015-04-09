@@ -26,6 +26,12 @@ class newrelic_plugins::haproxy (
     require   => Package['make'],
   }
 
+  file { 'newrelic_haproxy_agent_init':
+    ensure  => file,
+    path    => '/etc/init.d/newrelic_haproxy_agent',
+    content => template('haproxy/newrelic_haproxy_agent.erb'),
+  }
+
   exec {'newrelic_haproxy_agent_config':
     command  => '/usr/local/bin/newrelic_haproxy_agent install',
     require  => Package['bundler','newrelic_plugin','newrelic_haproxy_agent'],
@@ -34,8 +40,8 @@ class newrelic_plugins::haproxy (
 
   service { 'newrelic_haproxy_agent':
     ensure    => running,
-    start     => '/usr/local/bin/newrelic_haproxy_agent run',
-    subscribe => Exec['newrelic_haproxy_agent_config'],
+    enable    => true,
+    subscribe => File['newrelic_haproxy_agent_init'], 
   }
 
 }
