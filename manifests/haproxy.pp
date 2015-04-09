@@ -28,8 +28,8 @@ class newrelic_plugins::haproxy (
 
   file { 'newrelic_haproxy_agent_init':
     ensure  => file,
-    path    => '/etc/init.d/newrelic_haproxy_agent',
-    content => template('haproxy/newrelic_haproxy_agent.erb'),
+    path    => '/etc/init.d/newrelic_haproxy_plugin',
+    content => template('haproxy/newrelic_haproxy_plugin.erb'),
   }
 
   exec {'newrelic_haproxy_agent_config':
@@ -38,7 +38,7 @@ class newrelic_plugins::haproxy (
     creates  => '/etc/newrelic/newrelic_haproxy_agent.yml',
   }
 
-  service { 'newrelic_haproxy_agent':
+  service { 'newrelic_haproxy_plugin':
     ensure    => running,
     enable    => true,
     subscribe => File['newrelic_haproxy_agent_init'], 
