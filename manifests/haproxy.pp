@@ -48,10 +48,16 @@ class newrelic_plugins::haproxy (
   }
 
   # Configure the yaml file
+  file { '/etc/newrelic/newrelic/newrelic_haproxy_agent.yml':
+    ensure    => file,
+    mode      => '0644',
+    content   => template('newrelic_plugins/haproxy/newrelic_haproxy_agent.yml.erb'),
+  }
+
   service { 'newrelic_haproxy_plugin':
     ensure    => running,
     enable    => true,
-    subscribe => File['newrelic_haproxy_agent_init'], 
+    subscribe => File['newrelic_haproxy_agent_init','/etc/newrelic/newrelic/newrelic_haproxy_agent.yml'], 
   }
 
 }

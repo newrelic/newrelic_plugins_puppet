@@ -1,0 +1,32 @@
+##########################
+# Managed by Your Mother #
+##########################
+newrelic:
+  #
+  # Update with your New Relic account license key:
+  #
+  license_key: <%= @license_key %>
+  #
+  # Set to '1' for verbose output, remove for normal output.
+  # All output goes to stdout/stderr.
+  #
+  verbose: 0
+#
+# Agent Configuration:
+#
+agents:
+<% @haproxy_agents.each do |a| %>
+  <%= a %>:
+    # URI of the haproxy CSV stats url. See the 'CSV Export' link on your haproxy stats page (example stats page: http://demo.1wt.eu/).
+    uri: <%= a['uri'] %> 
+    # The name of the proxy to monitor. Proxies are typically listed in the haproxy.cfg file.
+    proxy: <%= a['proxy'] %> #http-in
+    # If multiple proxies have the same name, specify which proxy you want to monitor (ex: 'frontend' or 'backend')."
+    proxy_type: <%= a['proxy_type'] %> #FRONTEND
+    # If protected under basic authentication provide the user name
+<% if @user %>
+    user: <%= a['user'] %>
+    # If protected under basic authentication provide the password.
+    password: <%= a['password'] %> 
+<% end %>
+<% end %>
