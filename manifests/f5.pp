@@ -46,7 +46,7 @@ class newrelic_plugins::f5 (
     $user,
     $version = $newrelic_plugins::params::f5_version,
     $agents,
-) inherits params {
+) inherits newrelic_plugins::params {
 
   include stdlib
 
@@ -81,9 +81,9 @@ class newrelic_plugins::f5 (
   }
 
   file { "${plugin_path}/config":
-    ensure  => directory,
-    mode    => '0644',
-    owner   => $user
+    ensure => directory,
+    mode   => '0644',
+    owner  => $user,
   }
 
   # newrelic_plugin.yml template
