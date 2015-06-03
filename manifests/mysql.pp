@@ -91,7 +91,7 @@ class newrelic_plugins::mysql (
     $plugin_template = 'newrelic_plugins/mysql/plugin.json.erb',
     $service_enable = true,
     $service_ensure = running,
-) inherits params {
+) inherits newrelic_plugins::params {
 
   include stdlib
 
