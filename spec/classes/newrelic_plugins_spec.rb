@@ -4,17 +4,14 @@ describe 'newrelic_plugins', :type => :class do
   context "osfamily = RedHat" do
     let :facts do
       {
-        :osfamily        => 'RedHat',
+        :osfamily        => 'RedHat'
       }
     end
 
     context "default usage (osfamily = RedHat)" do
       let(:title) { 'newrelic_plugins-basic' }
 
-      it 'should compile' do
-        # Nothing defined in it!
-      end
+      it { should compile.with_all_deps }
     end
   end
 end
-
