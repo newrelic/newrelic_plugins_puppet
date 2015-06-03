@@ -34,6 +34,7 @@ class newrelic_plugins::wikipedia_example_java (
     $license_key,
     $install_path,
     $user,
+    $java_options = $newrelic_plugins::params::memcached_java_options,
     $version = $newrelic_plugins::params::wikipedia_example_java_version
 ) inherits newrelic_plugins::params {
 
