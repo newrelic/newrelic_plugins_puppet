@@ -21,12 +21,12 @@ aws:
   # Specify AWS regions to query for metrics
   # regions:
   #   us-east-1
-  <% unless @regions.empty? -%>
+<% unless @regions.empty? -%>
   regions:
-    <% @regions.each do |region| -%>
+<% @regions.each do |region| -%>
     <%= region %>
-    <% end -%>
-  <% end -%>
+<% end -%>
+<% end -%>
 #
 # Agent configuration.
 #
