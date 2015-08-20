@@ -14,6 +14,7 @@ define newrelic_plugins::resource::bundle_install ($plugin_path, $user) {
     command     => "sudo -u ${user} bundle install",
     cwd         => $plugin_path,
     require     => Package['bundler'],
+    onlyif      => "test `/usr/bin/gem list newrelic_plugin -i` -eq false",
     user        => $user
   }
 }
