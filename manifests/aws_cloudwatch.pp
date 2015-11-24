@@ -29,6 +29,9 @@
 #                    provided, the plugin will default to all available
 #                    regions.
 #
+# $install_nokogiri_packages:: Install nokogiri packages. Defaults to
+#                              `false`.
+#
 # == Requires:
 #
 #   puppetlabs/stdlib
@@ -51,8 +54,9 @@ class newrelic_plugins::aws_cloudwatch (
     $aws_access_key,
     $aws_secret_key,
     $agents,
-    $version = $newrelic_plugins::params::aws_cloudwatch_version,
-    $regions = [],
+    $version                   = $newrelic_plugins::params::aws_cloudwatch_version,
+    $regions                   = [],
+    $install_nokogiri_packages = false,
 ) inherits params {
 
   include stdlib
@@ -75,9 +79,11 @@ class newrelic_plugins::aws_cloudwatch (
   }
 
   # nokogiri packages
-  package { $newrelic_plugins::params::nokogiri_packages:
-    ensure => present,
-    before => Newrelic_plugins::Resource::Install_plugin['newrelic_aws_cloudwatch_plugin'] # for puppet 2.x support
+  if $install_nokogiri_packages {
+    package { $newrelic_plugins::params::nokogiri_packages:
+      ensure => present,
+      before => Newrelic_plugins::Resource::Install_plugin['newrelic_aws_cloudwatch_plugin'] # for puppet 2.x support
+    }
   }
 
   $plugin_path = "${install_path}/newrelic_aws_cloudwatch_plugin"
