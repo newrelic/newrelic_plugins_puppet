@@ -11,7 +11,7 @@ define newrelic_plugins::resource::bundle_install ($plugin_path, $user) {
   # bundle install
   exec { "${name}: bundle install":
     path        => $::path,
-    command     => "sudo -u ${user} bundle install",
+    command     => "bundle install",
     cwd         => $plugin_path,
     require     => Package['bundler'],
     user        => $user
