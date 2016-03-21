@@ -33,7 +33,7 @@
 #     agents         => [
 #       {
 #         name           => 'My F5',
-#         host           => 'my-f5',
+#         hostname       => 'my-f5',
 #         port           => 161,
 #         snmp_community => 'public'
 #       }
@@ -74,10 +74,9 @@ class newrelic_plugins::f5 (
 
   # create install directory
   exec { 'create install directory':
-    command => "mkdir -p ${plugin_path}",
+    command => "mkdir -p ${plugin_path} && chown -R ${user} ${plugin_path}",
     path    => $::path,
-    unless  => "test -d ${plugin_path}",
-    user    => $user
+    unless  => "test -d ${plugin_path}"
   }
 
   file { "${plugin_path}/config":
@@ -118,4 +117,3 @@ class newrelic_plugins::f5 (
   ->
   Newrelic_plugins::Resource::Plugin_service['newrelic-f5-plugin']
 }
-
