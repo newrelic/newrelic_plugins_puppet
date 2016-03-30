@@ -1,0 +1,10 @@
+[Unit]
+Description=New Relic <%= @plugin_name %> Plugin Daemon
+
+[Service]
+User=<%= @user %>
+ExecStart=<%= @run_command %> <%= @daemon %> >> plugin_daemon.log 2>&1
+WorkingDirectory=<%= @daemon_dir %>
+
+[Install]
+WantedBy=multi-user.target
