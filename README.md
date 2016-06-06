@@ -107,6 +107,7 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
 
 `regions` - _(optional)_ Array of AWS Cloudwatch regions. e.g. `us-east-1`. Defaults to all available regions
 
+`manage_packages` - _(optional)_ Allow package to manage its own dependencies
 ####Class
 
     class { 'newrelic_plugins::aws_cloudwatch':
@@ -325,6 +326,8 @@ For additional info, see https://github.com/newrelic-platform/newrelic_mysql_jav
 `region` - _(required)_ Region for Rackspace Load Balancers. Valid regions are: `ord`, `dfw`, and `lon`.
 
 `version` - _(optional)_ Plugin version. Defaults to latest release version
+
+`manage_packages` - _(optional)_ Allow package to manage its own dependencies
 
 ####Class
 
