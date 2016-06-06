@@ -108,6 +108,7 @@ An example of using the AWS Cloudwatch and MySQL plugins with two classes. See t
 `regions` - _(optional)_ Array of AWS Cloudwatch regions. e.g. `us-east-1`. Defaults to all available regions
 
 `manage_packages` - _(optional)_ Allow package to manage its own dependencies
+
 ####Class
 
     class { 'newrelic_plugins::aws_cloudwatch':
