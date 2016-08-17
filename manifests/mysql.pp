@@ -143,7 +143,7 @@ class newrelic_plugins::mysql (
     plugin_name    => 'MySQL',
     plugin_version => $version,
     user           => $user,
-    run_command    => "java ${java_options} -jar",
+    run_command    => "/usr/bin/java ${java_options} -jar",
     service_name   => 'newrelic-mysql-plugin',
     service_enable => $service_enable,
     service_ensure => $service_ensure,
@@ -162,4 +162,3 @@ class newrelic_plugins::mysql (
   ->
   Newrelic_plugins::Resource::Plugin_service['newrelic-mysql-plugin']
 }
-
