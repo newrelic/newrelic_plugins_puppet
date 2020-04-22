@@ -91,12 +91,13 @@ class newrelic_plugins::mysql (
     $plugin_template = 'newrelic_plugins/mysql/plugin.json.erb',
     $service_enable = true,
     $service_ensure = running,
-) inherits params {
-
+) inherits ::newrelic_plugins::params {
+  include newrelic_plugins
   include stdlib
 
   # verify java is installed
-  newrelic_plugins::resource::verify_java { 'MySQL Plugin': }
+  # TODO: Find a better way to do this.
+  # newrelic_plugins::resource::verify_java { 'MySQL Plugin': }
 
   # verify attributes
   validate_absolute_path($install_path)
@@ -115,7 +116,7 @@ class newrelic_plugins::mysql (
   newrelic_plugins::resource::install_plugin { 'newrelic_mysql_plugin':
     install_path => $install_path,
     plugin_path  => $plugin_path,
-    download_url => "${$newrelic_plugins::params::mysql_download_baseurl}-${version}.tar.gz",
+    download_url => "${::newrelic_plugins::mysql_download_baseurl}-${version}.tar.gz",
     version      => $version,
     user         => $user
   }
@@ -150,8 +151,8 @@ class newrelic_plugins::mysql (
   }
 
   # ordering
-  Newrelic_plugins::Resource::Verify_java['MySQL Plugin']
-  ->
+  # Newrelic_plugins::Resource::Verify_java['MySQL Plugin']
+  # ->
   Newrelic_plugins::Resource::Verify_license_key['MySQL Plugin: Verify New Relic License Key']
   ->
   Newrelic_plugins::Resource::Install_plugin['newrelic_mysql_plugin']

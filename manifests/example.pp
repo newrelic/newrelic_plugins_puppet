@@ -34,7 +34,7 @@ class newrelic_plugins::example (
     $install_path,
     $user,
     $version = $newrelic_plugins::params::example_version,
-) inherits params {
+) inherits ::newrelic_plugins::params {
 
   include stdlib
 

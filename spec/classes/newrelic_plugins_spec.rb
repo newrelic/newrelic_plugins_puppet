@@ -16,5 +16,13 @@ describe 'newrelic_plugins', :type => :class do
       end
     end
   end
-end
 
+  context "osfamily = Debian" do
+    let(:facts) {{
+        :osfamily        => 'Debian',
+      }}
+      it { should contain_class('newrelic_plugins') }
+      it { should contain_class('newrelic_plugins::params') }
+    end
+
+end

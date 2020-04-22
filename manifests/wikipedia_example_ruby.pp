@@ -34,7 +34,7 @@ class newrelic_plugins::wikipedia_example_ruby (
     $install_path,
     $user,
     $version = $newrelic_plugins::params::wikipedia_example_ruby_version,
-) inherits params {
+) inherits ::newrelic_plugins::params {
 
   include stdlib
 

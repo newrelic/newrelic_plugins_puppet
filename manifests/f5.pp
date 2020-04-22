@@ -46,7 +46,7 @@ class newrelic_plugins::f5 (
     $user,
     $version = $newrelic_plugins::params::f5_version,
     $agents,
-) inherits params {
+) inherits ::newrelic_plugins::params {
 
   include stdlib
 
