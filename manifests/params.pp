@@ -21,7 +21,7 @@ class newrelic_plugins::params {
 
   # nokogiri dependencies
   if $::osfamily == 'Debian' {
-    $nokogiri_packages = ['libxml2-dev', 'libxslt-dev']
+    $nokogiri_packages = ['libxml2-dev', 'libxslt1-dev']
   }
   else {
     $nokogiri_packages = ['libxml2', 'libxml2-devel', 'libxslt', 'libxslt-devel']
