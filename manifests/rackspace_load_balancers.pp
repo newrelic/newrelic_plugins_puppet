@@ -48,9 +48,7 @@ class newrelic_plugins::rackspace_load_balancers (
     $api_key,
     $region,
     $version = $newrelic_plugins::params::rackspace_load_balancers_version,
-) inherits params {
-
-  include stdlib
+) inherits newrelic_plugins::params {
 
   # verify ruby is installed
   newrelic_plugins::resource::verify_ruby { 'Rackspace Load Balancers Plugin': }

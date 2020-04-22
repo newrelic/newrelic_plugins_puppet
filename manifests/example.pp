@@ -34,9 +34,7 @@ class newrelic_plugins::example (
     $install_path,
     $user,
     $version = $newrelic_plugins::params::example_version,
-) inherits params {
-
-  include stdlib
+) inherits newrelic_plugins::params {
 
   # verify ruby is installed
   newrelic_plugins::resource::verify_ruby { 'Example Plugin': }

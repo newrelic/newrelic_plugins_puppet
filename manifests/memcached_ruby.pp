@@ -45,9 +45,7 @@ class newrelic_plugins::memcached_ruby (
     $user,
     $version = $newrelic_plugins::params::memcached_ruby_version,
     $agents,
-) inherits params {
-
-  include stdlib
+) inherits newrelic_plugins::params {
 
   # verify ruby is installed
   newrelic_plugins::resource::verify_ruby { 'Memcached (Ruby) Plugin': }

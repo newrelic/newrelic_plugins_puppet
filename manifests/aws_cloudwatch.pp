@@ -53,9 +53,7 @@ class newrelic_plugins::aws_cloudwatch (
     $agents,
     $version = $newrelic_plugins::params::aws_cloudwatch_version,
     $regions = [],
-) inherits params {
-
-  include stdlib
+) inherits newrelic_plugins::params {
 
   # verify ruby is installed
   newrelic_plugins::resource::verify_ruby { 'AWS Cloudwatch Plugin': }

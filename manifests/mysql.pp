@@ -91,9 +91,7 @@ class newrelic_plugins::mysql (
     $plugin_template = 'newrelic_plugins/mysql/plugin.json.erb',
     $service_enable = true,
     $service_ensure = running,
-) inherits params {
-
-  include stdlib
+) inherits newrelic_plugins::params {
 
   # verify java is installed
   newrelic_plugins::resource::verify_java { 'MySQL Plugin': }

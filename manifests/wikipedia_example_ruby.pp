@@ -34,9 +34,7 @@ class newrelic_plugins::wikipedia_example_ruby (
     $install_path,
     $user,
     $version = $newrelic_plugins::params::wikipedia_example_ruby_version,
-) inherits params {
-
-  include stdlib
+) inherits newrelic_plugins::params {
 
   # verify ruby is installed
   newrelic_plugins::resource::verify_ruby { 'Wikipedia Example Ruby Plugin': }

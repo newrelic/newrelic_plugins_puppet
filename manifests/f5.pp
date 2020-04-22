@@ -46,9 +46,7 @@ class newrelic_plugins::f5 (
     $user,
     $version = $newrelic_plugins::params::f5_version,
     $agents,
-) inherits params {
-
-  include stdlib
+) inherits newrelic_plugins::params {
 
   # verify ruby is installed
   newrelic_plugins::resource::verify_ruby { 'F5 Plugin': }
