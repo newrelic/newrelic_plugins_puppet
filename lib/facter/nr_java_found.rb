@@ -5,7 +5,7 @@ Facter.add(:nr_java_found) do
     if java && !java.empty?
       long_version = Facter::Util::Resolution.exec("#{java} -version 2>&1")
       version = long_version.split("\n")[0].split('"')[1]
-      version.start_with?('1.6', '1.7')
+      version > '1.5'
     else
       false
     end
