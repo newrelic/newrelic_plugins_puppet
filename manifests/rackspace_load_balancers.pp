@@ -24,6 +24,7 @@
 # $region::          Region for Rackspace Load Balancers. Valid regions are:
 #                    'ord', 'dfw', and 'lon'.
 #
+# $manage_packages:: Allow package to manage its own dependencies
 #
 # == Requires:
 #
@@ -48,6 +49,7 @@ class newrelic_plugins::rackspace_load_balancers (
     $api_key,
     $region,
     $version = $newrelic_plugins::params::rackspace_load_balancers_version,
+    $manage_packages = true
 ) inherits params {
 
   include stdlib
@@ -69,9 +71,11 @@ class newrelic_plugins::rackspace_load_balancers (
   }
 
   # nokogiri packages
-  package { $newrelic_plugins::params::nokogiri_packages:
-    ensure => present,
-    before => Newrelic_plugins::Resource::Install_plugin['newrelic_rackspace_load_balancers_plugin'] # for puppet 2.x support
+  if $manage_packages {
+    package { $newrelic_plugins::params::nokogiri_packages:
+      ensure => present,
+      before => Newrelic_plugins::Resource::Install_plugin['newrelic_rackspace_load_balancers_plugin'] # for puppet 2.x support
+    }
   }
 
   $plugin_path = "${install_path}/newrelic_rackspace_load_balancers_plugin"
